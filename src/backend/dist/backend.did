@@ -1,0 +1,2513 @@
+type WidgetType = 
+ variant {
+   AccountHealth;
+   ActivityFeed;
+   AiInsights;
+   AiUsage;
+   BarChart;
+   ComputeStorage;
+   Custom;
+   DistributorPerformance;
+   Forecasting;
+   KpiCard;
+   LineGraph;
+   MdfTracking;
+   MessagingWidget;
+   OperationalAlerts;
+   OpportunitySummary;
+   PipelineBoard;
+   RenewalTracker;
+   ResellerPerformance;
+   SlaTracking;
+   TerritoryPerformance;
+ };
+type WidgetSize = 
+ variant {
+   FullWidth;
+   Large;
+   Medium;
+   Small;
+   Tall;
+   Wide;
+ };
+type WidgetConfig = 
+ record {
+   accountFilter: opt text;
+   aiSummaryEnabled: bool;
+   customConfig: text;
+   dateRange: opt text;
+   deptFilter: vec text;
+   isPinned: bool;
+   posX: nat;
+   posY: nat;
+   refreshIntervalSecs: opt nat;
+   roleFilter: vec text;
+   size: WidgetSize;
+   territoryFilter: opt text;
+   title: text;
+   widgetId: text;
+   widgetType: WidgetType;
+ };
+type VisibilityTargetType = 
+ variant {
+   Field;
+   Section;
+   Tab;
+ };
+type VisibilityRule__1 = 
+ record {
+   action: VisibilityRuleAction;
+   conditions: vec VisibilityCondition;
+   id: text;
+   operator: VisibilityOperator;
+   targetId: text;
+   targetType: VisibilityTargetType;
+ };
+type VisibilityRuleType = 
+ variant {
+   allow;
+   deny;
+ };
+type VisibilityRuleInput = 
+ record {
+   conditions: vec VisibilityRuleCondition;
+   isActive: bool;
+   objectType: CustomFieldObjectType;
+   ruleType: VisibilityRuleType;
+ };
+type VisibilityRuleCondition = 
+ record {
+   conditionField: text;
+   conditionOperator: ConditionOperator;
+   conditionValue: text;
+ };
+type VisibilityRuleAction = 
+ variant {
+   Hide;
+   Show;
+ };
+type VisibilityRule = 
+ record {
+   conditions: vec VisibilityRuleCondition;
+   createdAt: int;
+   id: text;
+   isActive: bool;
+   objectType: CustomFieldObjectType;
+   orgId: text;
+   ruleType: VisibilityRuleType;
+   updatedAt: int;
+ };
+type VisibilityOperator = 
+ variant {
+   And;
+   Or;
+ };
+type VisibilityConditionType = 
+ variant {
+   ByAccountType;
+   ByDepartment;
+   ByMarketSegment;
+   ByOrgType;
+   ByRole;
+   ByTerritory;
+ };
+type VisibilityCondition = 
+ record {
+   conditionType: VisibilityConditionType;
+   value: text;
+ };
+type UserRole__1 = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserRole = 
+ variant {
+   DistributorPrimaryAdmin;
+   DistributorSalesUser;
+   DistributorSecondaryAdmin;
+   ReadOnlyViewer;
+   ResellerAdmin;
+   ResellerPrimaryAdmin;
+   ResellerSalesUser;
+   VendorAdmin;
+   VendorPrimaryAdmin;
+   VendorSecondaryAdmin;
+ };
+type UserProfileInput = 
+ record {
+   companyId: text;
+   email: text;
+   fullName: text;
+   isPrimaryAdmin: bool;
+   permissions: vec text;
+   role: UserRole;
+ };
+type UserProfileDetailInput = 
+ record {
+   displayName: text;
+   jobTitle: text;
+   linkedInUrl: opt text;
+   photoUrl: opt text;
+   region: opt text;
+   roleDescription: opt text;
+   timezone: opt text;
+   visibilityScope: ProfileVisibilityScope;
+ };
+type UserProfileDetail = 
+ record {
+   companyId: text;
+   companyType: CompanyType;
+   createdAt: int;
+   displayName: text;
+   email: text;
+   jobTitle: text;
+   linkedInUrl: opt text;
+   photoUrl: opt text;
+   region: opt text;
+   roleDescription: opt text;
+   timezone: opt text;
+   updatedAt: int;
+   userId: text;
+   userRole: UserRole;
+   visibilityScope: ProfileVisibilityScope;
+ };
+type UserProfile = 
+ record {
+   companyId: text;
+   createdAt: int;
+   email: text;
+   fullName: text;
+   id: text;
+   isPrimaryAdmin: bool;
+   permissions: vec text;
+   role: UserRole;
+ };
+type UsageEvent = 
+ record {
+   actionType: text;
+   aiCost: nat;
+   computeCost: nat;
+   orgId: text;
+   storageCost: nat;
+   timestamp: int;
+   userId: text;
+ };
+type UnlockRequestStatus = 
+ variant {
+   Approved;
+   Declined;
+   Pending;
+ };
+type UnlockRequest = 
+ record {
+   createdAt: Timestamp;
+   lockSource: LockSource;
+   reason: text;
+   requestId: text;
+   requestingAdminId: principal;
+   requestingAdminName: text;
+   requestingOrgId: text;
+   resolvedAt: opt Timestamp;
+   resolvedBy: opt principal;
+   ruleId: NotificationRuleId;
+   ruleName: text;
+   status: UnlockRequestStatus;
+   targetOrgId: text;
+ };
+type Timestamp = int;
+type TierPermission = 
+ variant {
+   AIRecommendations;
+   APIAccess;
+   AdvancedDashboards;
+   CustomerAnalytics;
+   DealRegistrations;
+   ExportPermissions;
+   ForecastVisibility;
+   MDFRequests;
+   PipelineReporting;
+   PricingDiscounts;
+   PromotionsVisibility;
+   RenewalVisibilityDepth;
+   SecondaryAdminAccess;
+   StrategicAccountInsights;
+ };
+type TierOverride = 
+ record {
+   granted: bool;
+   overriddenAt: Timestamp;
+   overriddenBy: principal;
+   permission: TierPermission;
+   reason: text;
+   resellerId: text;
+ };
+type TierConfig = 
+ record {
+   maxSecondaryAdmins: nat;
+   permissions: vec TierPermission;
+   tier: PartnerTier;
+   updatedAt: Timestamp;
+   updatedBy: principal;
+ };
+type TierAssignment = 
+ record {
+   assignedAt: Timestamp;
+   assignedBy: principal;
+   resellerId: text;
+   tier: PartnerTier;
+ };
+type TargetScope = 
+ variant {
+   AllResellers;
+   ByCountry: text;
+   ByDistributor: text;
+   ByProductFamily: text;
+   ByReseller: text;
+   ByTier: text;
+   ByUser: text;
+ };
+type TargetPeriodType = 
+ variant {
+   Annual;
+   Quarterly;
+ };
+type TargetMeasureId = 
+ variant {
+   Measure1;
+   Measure2;
+   Measure3;
+   Measure4;
+   Measure5;
+ };
+type TargetMeasureConfig = 
+ record {
+   measures: vec TargetMeasure;
+   updatedAt: Timestamp;
+   updatedBy: text;
+   vendorId: text;
+ };
+type TargetMeasure = 
+ record {
+   calculationType: TargetCalculationType;
+   customName: opt text;
+   defaultName: text;
+   measureId: TargetMeasureId;
+ };
+type TargetCalculationType = 
+ variant {
+   Count;
+   Percentage;
+   Revenue;
+   Weighted;
+ };
+type TargetAssignmentInput = 
+ record {
+   assignmentScope: TargetScope;
+   measureId: TargetMeasureId;
+   periodKey: text;
+   periodType: TargetPeriodType;
+   targetValue: float64;
+ };
+type TargetAssignment = 
+ record {
+   assignedAt: Timestamp;
+   assignedBy: text;
+   assignmentId: text;
+   assignmentScope: TargetScope;
+   measureId: TargetMeasureId;
+   periodKey: text;
+   periodType: TargetPeriodType;
+   targetValue: float64;
+   vendorId: text;
+ };
+type SmartQueryType = 
+ variant {
+   AccountsNoEngagement;
+   ContractsMissingPlans;
+   CustomersNoActivePipeline;
+   DecliningEngagement;
+   HighGrowthOpportunities;
+   HighRiskRenewals;
+   InactiveResellers;
+   PendingDRsOver14Days;
+   RenewalsExpiringNextMonth;
+   ResellersBelowTarget;
+   StalledApprovals;
+   TopPerformingDistributors;
+ };
+type SmartQueryResultItem = 
+ record {
+   daysUntilRenewal: opt int;
+   details: text;
+   distributorName: opt text;
+   entityId: text;
+   entityName: text;
+   entityType: text;
+   lastEngagementDays: opt nat;
+   resellerName: opt text;
+   riskScore: opt nat;
+   riskTier: opt RiskTier;
+ };
+type SmartQueryResult = 
+ record {
+   filtersApplied: SmartQueryFilter;
+   generatedAt: Timestamp;
+   insights: vec text;
+   items: vec SmartQueryResultItem;
+   queryType: SmartQueryType;
+   summary: text;
+   totalCount: nat;
+ };
+type SmartQueryFilter = 
+ record {
+   accountManagerId: opt text;
+   distributorId: opt text;
+   maxContractValue: opt nat;
+   minContractValue: opt nat;
+   product: opt text;
+   region: opt text;
+   renewalWindowDays: opt nat;
+   resellerId: opt text;
+   riskLevel: opt text;
+ };
+type SessionToken = 
+ record {
+   companyId: text;
+   companyType: CompanyType;
+   createdAt: int;
+   expiresAt: int;
+   isPendingMfa: bool;
+   mfaVerified: bool;
+   token: text;
+   userId: text;
+ };
+type SSOProvider = 
+ variant {
+   azure_ad;
+   custom;
+   google_workspace;
+   internet_identity;
+   none;
+   oidc;
+   okta;
+   saml;
+ };
+type SSOConfig = 
+ record {
+   allowFallbackPassword: bool;
+   callbackUrl: text;
+   clientId: text;
+   clientSecret: text;
+   domainMapping: vec text;
+   enabled: bool;
+   forceSso: bool;
+   issuerUrl: text;
+   metadataUrl: text;
+   orgId: text;
+   provider: SSOProvider;
+   roleMapping: vec RoleMapping;
+   updatedAt: int;
+   updatedBy: text;
+ };
+type RoleMapping = 
+ record {
+   channelforgeRole: text;
+   providerGroup: text;
+ };
+type RiskTier = 
+ variant {
+   Critical;
+   Healthy;
+   High;
+   Low;
+   Medium;
+ };
+type RiskSignal = 
+ record {
+   dataSource: text;
+   description: text;
+   severity: RiskTier;
+   signalType: text;
+ };
+type Result_9 = 
+ variant {
+   err: text;
+   ok: TargetMeasureConfig;
+ };
+type Result_8 = 
+ variant {
+   err: text;
+   ok: UserProfileDetail;
+ };
+type Result_7 = 
+ variant {
+   err: text;
+   ok: NewsItem;
+ };
+type Result_6 = 
+ variant {
+   err: text;
+   ok: Note;
+ };
+type Result_5 = 
+ variant {
+   err: text;
+   ok: PriceList;
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: Promotion;
+ };
+type Result_31 = 
+ variant {
+   err: text;
+   ok: Alert;
+ };
+type Result_30 = 
+ variant {
+   err: text;
+   ok: ConversationThread;
+ };
+type Result_3 = 
+ variant {
+   err: text;
+   ok;
+ };
+type Result_29 = 
+ variant {
+   err: text;
+   ok: Conversation;
+ };
+type Result_28 = 
+ variant {
+   err: text;
+   ok: CompanyProfile;
+ };
+type Result_27 = 
+ variant {
+   err: AuthError;
+   ok: PasswordResetToken;
+ };
+type Result_26 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result_25 = 
+ variant {
+   err: text;
+   ok: ResidentInvitation;
+ };
+type Result_24 = 
+ variant {
+   err: text;
+   ok: CreditBalance;
+ };
+type Result_23 = 
+ variant {
+   err: text;
+   ok:
+    record {
+      gapAlerts: vec EngagementGapAlert;
+      recommendations: vec ForgeAIRecommendation;
+      riskScores: vec RenewalRiskScore;
+    };
+ };
+type Result_22 = 
+ variant {
+   err: text;
+   ok: NLQueryResult;
+ };
+type Result_21 = 
+ variant {
+   err: text;
+   ok: SmartQueryResult;
+ };
+type Result_20 = 
+ variant {
+   err: text;
+   ok: FiscalYearConfig;
+ };
+type Result_2 = 
+ variant {
+   err: AuthError;
+   ok;
+ };
+type Result_19 = 
+ variant {
+   err: text;
+   ok: TargetAssignment;
+ };
+type Result_18 = 
+ variant {
+   err: text;
+   ok: UserProfile;
+ };
+type Result_17 = 
+ variant {
+   err: text;
+   ok: Message;
+ };
+type Result_16 = 
+ variant {
+   err: AuthError;
+   ok: MfaSetupChallenge;
+ };
+type Result_15 = 
+ variant {
+   err: text;
+   ok: UnlockRequest;
+ };
+type Result_14 = 
+ variant {
+   err: text;
+   ok: Account;
+ };
+type Result_13 = 
+ variant {
+   err: text;
+   ok: BusinessPlan;
+ };
+type Result_12 = 
+ variant {
+   err: text;
+   ok: Contact;
+ };
+type Result_11 = 
+ variant {
+   err: text;
+   ok: DealRegistration;
+ };
+type Result_10 = 
+ variant {
+   err: text;
+   ok: DistributorProfile;
+ };
+type Result_1 = 
+ variant {
+   err: AuthError;
+   ok: SessionToken;
+ };
+type Result = 
+ variant {
+   err: AuthError;
+   ok: vec text;
+ };
+type ResidentInvitation = 
+ record {
+   companyId: text;
+   createdAt: int;
+   email: text;
+   expiresAt: int;
+   id: text;
+   invitedBy: text;
+   role: UserRole;
+   status: InvitationStatus;
+ };
+type ResellerQTDRanking = 
+ record {
+   attainmentPercent: float64;
+   rank: nat;
+   renewalRevenue: float64;
+   resellerId: text;
+   resellerName: text;
+ };
+type ResellerInput = 
+ record {
+   companyId: text;
+   companyName: text;
+   emailDomain: text;
+   logoKey: opt text;
+   primaryAdminEmail: text;
+ };
+type ReportFilters = 
+ record {
+   accountOwnerId: opt text;
+   distributorId: opt text;
+   endDate: opt Timestamp;
+   resellerId: opt text;
+   startDate: opt Timestamp;
+   status: opt text;
+ };
+type RenewalRiskScore = 
+ record {
+   accountId: text;
+   confidence: nat;
+   lastAnalyzed: Timestamp;
+   recommendations: vec text;
+   score: nat;
+   signals: vec RiskSignal;
+   tier: RiskTier;
+ };
+type ReassignmentApprovalStatus = 
+ variant {
+   Approved;
+   Pending;
+   Rejected;
+ };
+type ReadReceipt = 
+ record {
+   readAt: int;
+   userId: text;
+ };
+type QuarterDef = 
+ record {
+   endDate: text;
+   name: text;
+   quarterId: text;
+   startDate: text;
+ };
+type QTDMetrics = 
+ record {
+   calculatedAt: Timestamp;
+   currency: text;
+   dealRegistrationsApproved: nat;
+   dealRegistrationsSubmitted: nat;
+   newBusinessRevenue: float64;
+   pipelineClosed: float64;
+   pipelineCreated: float64;
+   quarterKey: text;
+   renewalRevenue: float64;
+   resellerId: opt text;
+ };
+type QTDFilters = 
+ record {
+   country: opt text;
+   currency: opt text;
+   productFamily: opt text;
+   quarterKey: opt text;
+   resellerId: opt text;
+   targetSegment: opt TargetMeasureId;
+   tierName: opt text;
+ };
+type PromotionInput = 
+ record {
+   callToAction: text;
+   description: text;
+   endDate: int;
+   fileKeys: vec text;
+   product: text;
+   promoName: text;
+   resellerEligibility: vec text;
+   startDate: int;
+ };
+type Promotion = 
+ record {
+   callToAction: text;
+   createdAt: int;
+   createdBy: text;
+   description: text;
+   endDate: int;
+   fileKeys: vec text;
+   id: text;
+   product: text;
+   promoName: text;
+   resellerEligibility: vec text;
+   startDate: int;
+ };
+type ProfileVisibilityScope = 
+ variant {
+   ConnectedOnly;
+   WorkspaceOnly;
+ };
+type PriceListInput = 
+ record {
+   currency: text;
+   effectiveDate: int;
+   expiryDate: int;
+   fileKey: text;
+   name: text;
+   productFamily: text;
+   region: text;
+   version: text;
+ };
+type PriceList = 
+ record {
+   createdAt: int;
+   createdBy: text;
+   currency: text;
+   effectiveDate: int;
+   expiryDate: int;
+   fileKey: text;
+   id: text;
+   name: text;
+   productFamily: text;
+   region: text;
+   version: text;
+ };
+type PlanType = 
+ variant {
+   Annual;
+   Monthly;
+   Quarterly;
+ };
+type PasswordResetToken = 
+ record {
+   companyType: CompanyType;
+   createdAt: int;
+   email: text;
+   expiresAt: int;
+   id: text;
+   revokedBy: opt text;
+   used: bool;
+   userId: text;
+ };
+type PartnerTier = 
+ variant {
+   Gold;
+   Platinum;
+   Silver;
+ };
+type OwnerType = 
+ variant {
+   Distributor;
+   Reseller;
+   Vendor;
+ };
+type OrgVisibilityConfigInput = 
+ record {
+   defaultInheritFromVendor: bool;
+   lockedByParent: bool;
+ };
+type OrgVisibilityConfig = 
+ record {
+   customRules: vec VisibilityRule;
+   defaultInheritFromVendor: bool;
+   lockedByParent: bool;
+   orgId: text;
+   updatedAt: int;
+ };
+type OrgForgeAIAlertSettings = 
+ record {
+   alertConfigs: vec ForgeAIAlertConfig;
+   canManageForgeAIAlertsSecondaryAdmins: vec principal;
+   orgId: text;
+ };
+type OpportunityUpdateInput = 
+ record {
+   associatedDealIds: opt vec text;
+   closeDate: opt int;
+   customerAccountId: opt text;
+   distributorId: opt text;
+   opportunityName: opt text;
+   resellerId: opt text;
+   revenueEstimate: opt nat;
+   stage: opt OpportunityStage;
+   status: opt OpportunityStatus;
+ };
+type OpportunityStatus = 
+ variant {
+   active;
+   archived;
+ };
+type OpportunityStage = 
+ variant {
+   closedLost;
+   closedWon;
+   negotiation;
+   proposal;
+   prospecting;
+   qualification;
+ };
+type OpportunityInput = 
+ record {
+   associatedDealIds: vec text;
+   closeDate: int;
+   customerAccountId: opt text;
+   distributorId: opt text;
+   opportunityName: text;
+   resellerId: opt text;
+   revenueEstimate: nat;
+   stage: OpportunityStage;
+   vendorOwnerId: text;
+ };
+type Opportunity = 
+ record {
+   associatedDealIds: vec text;
+   closeDate: int;
+   createdAt: int;
+   customFieldValues: vec CustomFieldValueRef;
+   customerAccountId: opt text;
+   distributorId: opt text;
+   id: text;
+   opportunityName: text;
+   ownerUserId: text;
+   resellerId: opt text;
+   revenueEstimate: nat;
+   stage: OpportunityStage;
+   status: OpportunityStatus;
+   updatedAt: int;
+   vendorOwnerId: text;
+ };
+type NotificationType = 
+ variant {
+   DealApproved;
+   DealRejected;
+   DuplicateDRFlagged;
+   DuplicateDRReviewed;
+   EngagementGapAlert;
+   TierAssigned;
+   UnlockRequested;
+   WorkspaceActivated;
+ };
+type NotificationRuleId = text;
+type NotificationRule = 
+ record {
+   currentValue: bool;
+   displayName: text;
+   isEditable: bool;
+   lockStatus: LockStatus;
+   ruleId: NotificationRuleId;
+ };
+type NoteInput = 
+ record {
+   accountId: text;
+   authorName: text;
+   authorRole: text;
+   content: text;
+ };
+type Note = 
+ record {
+   accountId: text;
+   authorId: text;
+   authorName: text;
+   authorRole: text;
+   content: text;
+   createdAt: int;
+   editedBy: opt text;
+   id: text;
+   updatedAt: opt int;
+ };
+type NewsVisibility = 
+ variant {
+   AllResellers;
+   SpecificRegions: vec text;
+   SpecificResellers: vec text;
+   VendorOnly;
+ };
+type NewsItemInput = 
+ record {
+   body: text;
+   publishDate: int;
+   title: text;
+   visibility: NewsVisibility;
+ };
+type NewsItem = 
+ record {
+   body: text;
+   createdAt: int;
+   id: text;
+   publishDate: int;
+   publishedBy: text;
+   title: text;
+   visibility: NewsVisibility;
+ };
+type NLQueryResult = 
+ record {
+   confidenceLevel: text;
+   interpretationExplanation: text;
+   interpretedFilters: SmartQueryFilter;
+   interpretedQueryType: SmartQueryType;
+   originalQuery: text;
+   queryResult: SmartQueryResult;
+ };
+type MfaSetupChallenge = 
+ record {
+   qrCodeUrl: text;
+   totpSecret: text;
+ };
+type MessageId = text;
+type Message = 
+ record {
+   attachmentUrls: vec text;
+   content: text;
+   conversationId: ConversationId;
+   id: MessageId;
+   readBy: vec ReadReceipt;
+   senderId: text;
+   sentAt: int;
+ };
+type MdfRequestStatus = 
+ variant {
+   approved;
+   cancelled;
+   paid;
+   pending;
+   rejected;
+ };
+type MdfRequestInput = 
+ record {
+   amount: nat;
+   associatedAccountId: opt text;
+   budgetQuarter: opt nat;
+   budgetYear: nat;
+   currency: text;
+   purpose: text;
+   vendorOwnerId: text;
+ };
+type MdfRequestDecisionInput = 
+ record {
+   approvalNote: opt text;
+   decision: MdfRequestStatus;
+ };
+type MdfRequest = 
+ record {
+   amount: nat;
+   approvalNote: opt text;
+   approvedAt: opt int;
+   approvedBy: opt text;
+   associatedAccountId: opt text;
+   budgetQuarter: opt nat;
+   budgetYear: nat;
+   createdAt: int;
+   currency: text;
+   customFieldValues: vec CustomFieldValueRef;
+   id: text;
+   purpose: text;
+   requestorOrgId: text;
+   requestorUserId: text;
+   status: MdfRequestStatus;
+   updatedAt: int;
+   vendorOwnerId: text;
+ };
+type MarketingActivityUpdateInput = 
+ record {
+   activityName: opt text;
+   activityType: opt MarketingActivityType;
+   associatedPromotionIds: opt vec text;
+   budget: opt nat;
+   currency: opt text;
+   endDate: opt int;
+   roi: opt int;
+   startDate: opt int;
+   status: opt MarketingActivityStatus;
+   targetAccountIds: opt vec text;
+ };
+type MarketingActivityType = 
+ variant {
+   content;
+   emailCampaign;
+   event;
+   other;
+   sponsorship;
+   webinar;
+ };
+type MarketingActivityStatus = 
+ variant {
+   cancelled;
+   completed;
+   inProgress;
+   planned;
+ };
+type MarketingActivityInput = 
+ record {
+   activityName: text;
+   activityType: MarketingActivityType;
+   associatedPromotionIds: vec text;
+   budget: nat;
+   currency: text;
+   distributorId: opt text;
+   endDate: int;
+   resellerId: opt text;
+   startDate: int;
+   targetAccountIds: vec text;
+   vendorOwnerId: text;
+ };
+type MarketingActivity = 
+ record {
+   activityName: text;
+   activityType: MarketingActivityType;
+   associatedPromotionIds: vec text;
+   budget: nat;
+   createdAt: int;
+   currency: text;
+   customFieldValues: vec CustomFieldValueRef;
+   distributorId: opt text;
+   endDate: int;
+   id: text;
+   ownerUserId: text;
+   resellerId: opt text;
+   roi: opt int;
+   startDate: int;
+   status: MarketingActivityStatus;
+   targetAccountIds: vec text;
+   updatedAt: int;
+   vendorOwnerId: text;
+ };
+type LockedAccountInfo = 
+ record {
+   companyId: text;
+   email: text;
+   failedCount: nat;
+   fullName: text;
+   lockedAt: int;
+   lockedUntil: int;
+   userId: text;
+ };
+type LockStatus = 
+ variant {
+   InheritedFrom: LockSource;
+   LockedBy: LockSource;
+   Unlocked;
+ };
+type LockSource = 
+ variant {
+   Distributor;
+   Vendor;
+ };
+type LayoutSection = 
+ record {
+   collapsible: bool;
+   fieldIds: vec text;
+   id: text;
+   sortOrder: nat;
+   title: text;
+ };
+type LayoutPermissions = 
+ record {
+   canManageCustomFields: bool;
+   canManageDashboardTemplates: bool;
+   canManageLayouts: bool;
+   canManageWidgets: bool;
+ };
+type LayoutId = text;
+type LayoutField = 
+ record {
+   defaultValue: opt text;
+   fieldLabel: text;
+   fieldType: FieldType;
+   id: text;
+   options: vec text;
+   required: bool;
+   sectionId: opt text;
+   sortOrder: nat;
+   visible: bool;
+ };
+type LayoutAuditEntry = 
+ record {
+   action: text;
+   afterState: opt text;
+   beforeState: opt text;
+   entityId: text;
+   entityType: text;
+   id: text;
+   performedBy: text;
+   timestamp: int;
+ };
+type InviteUserInput = 
+ record {
+   companyId: text;
+   email: text;
+   role: UserRole;
+ };
+type InvitationStatus = 
+ variant {
+   Accepted;
+   Cancelled;
+   Expired;
+   Pending;
+ };
+type InAppNotification = 
+ record {
+   createdAt: Timestamp;
+   entityId: opt text;
+   entityType: opt text;
+   id: text;
+   isRead: bool;
+   message: text;
+   notificationType: NotificationType;
+   recipientId: principal;
+   title: text;
+ };
+type GapNotificationRecipientConfig = 
+ record {
+   accountOwner: bool;
+   assignedDistributor: bool;
+   assignedReseller: bool;
+   primaryAdmin: bool;
+ };
+type GapNotificationConfig = 
+ record {
+   critical: GapNotificationRecipientConfig;
+   high: GapNotificationRecipientConfig;
+ };
+type ForgeAISettings = 
+ record {
+   auditLogLevel: text;
+   distributorInactivityThresholdDays: nat;
+   enabled: bool;
+   engagementGapEnabled: bool;
+   escalationThresholdDays: nat;
+   gapNotificationConfig: GapNotificationConfig;
+   messagingAssistEnabled: bool;
+   recommendationsEnabled: bool;
+   renewalRiskEnabled: bool;
+   resellerInactivityThresholdDays: nat;
+   smartQueriesEnabled: bool;
+   warningThresholdDays: nat;
+ };
+type ForgeAIRecommendation = 
+ record {
+   affectedEntityId: text;
+   affectedEntityName: text;
+   affectedEntityType: text;
+   confidence: nat;
+   dismissed: bool;
+   id: text;
+   recommendationType: text;
+   riskLevel: RiskTier;
+   suggestedAction: text;
+   summary: text;
+   timestamp: Timestamp;
+ };
+type ForgeAIChatSession = 
+ record {
+   contextId: opt text;
+   contextType: opt text;
+   createdAt: int;
+   id: text;
+   messages: vec ChatMessage;
+   providerId: text;
+   updatedAt: int;
+   userId: text;
+ };
+type ForgeAIAuditEntry = 
+ record {
+   analysisType: text;
+   confidence: opt nat;
+   details: text;
+   entityId: text;
+   entityName: text;
+   id: text;
+   riskLevel: opt RiskTier;
+   timestamp: Timestamp;
+   triggeredBy: text;
+ };
+type ForgeAIAlertType = 
+ variant {
+   AccountRisk;
+   BusinessPlanInactivity;
+   ChannelHealthScoreChange;
+   DealRegistrationWarning;
+   DistributorEngagementGap;
+   PipelineHealth;
+   RenewalRisk;
+   ResellerEngagementGap;
+   StalledApproval;
+ };
+type ForgeAIAlertConfig = 
+ record {
+   alertType: ForgeAIAlertType;
+   deliveryMode: AlertDeliveryMode;
+   enabled: bool;
+   endUsersRecipient: bool;
+   escalationRecipients: vec text;
+   frequency: AlertFrequency;
+   lockStatus: LockStatus;
+   primaryAdminRecipient: bool;
+   riskThreshold: opt nat;
+   secondaryAdminRecipient: bool;
+ };
+type ForexRefreshMode = 
+ variant {
+   Daily;
+   Hourly;
+   LiveOnLoad;
+   ManualOnly;
+   Weekly;
+ };
+type ForexProvider = 
+ variant {
+   BankOfEngland;
+   Binance;
+   Coinbase;
+   CustomAPI;
+   ECB;
+   OpenExchangeRates;
+   XE;
+ };
+type ForexConfig = 
+ record {
+   cryptoEnabled: bool;
+   customApiEndpoint: opt text;
+   defaultCurrency: Currency;
+   fallbackProviders: vec ForexProvider;
+   primaryProvider: ForexProvider;
+   refreshMode: ForexRefreshMode;
+   updatedAt: Timestamp;
+   updatedBy: principal;
+ };
+type FiscalYearType = 
+ variant {
+   CalendarYear;
+   CustomFiscal;
+ };
+type FiscalYearConfigInput = 
+ record {
+   fiscalYearType: FiscalYearType;
+   quarters: vec QuarterDef;
+ };
+type FiscalYearConfig = 
+ record {
+   fiscalYearType: FiscalYearType;
+   quarters: vec QuarterDef;
+   updatedAt: Timestamp;
+   updatedBy: text;
+   vendorId: text;
+ };
+type FieldType = 
+ variant {
+   Attachment;
+   Checkbox;
+   Currency;
+   DateTime;
+   Date;
+   Dropdown;
+   Email;
+   LongText;
+   MultiSelect;
+   Number;
+   OrgSelector;
+   Percentage;
+   Phone;
+   RegionSelector;
+   Tag;
+   Text;
+   Url;
+   UserSelector;
+ };
+type FailedLoginEvent = 
+ record {
+   attemptCount: nat;
+   companyType: CompanyType;
+   email: text;
+   id: text;
+   ipHint: text;
+   reason: text;
+   timestamp: int;
+   userId: opt text;
+ };
+type ExchangeRateSnapshot = 
+ record {
+   fetchedAt: Timestamp;
+   fromCurrency: Currency;
+   provider: ForexProvider;
+   rate: float64;
+   toCurrency: Currency;
+ };
+type EngagementGapAlert = 
+ record {
+   alertLevel: RiskTier;
+   daysSinceEngagement: nat;
+   description: text;
+   detectedAt: Timestamp;
+   entityId: text;
+   entityName: text;
+   entityType: text;
+   threshold: nat;
+ };
+type DuplicateDRStatus = 
+ variant {
+   Approved;
+   Escalated;
+   Merged;
+   PendingVendorReview;
+   Reassigned;
+   Rejected;
+ };
+type DuplicateDRRecord = 
+ record {
+   accountId: text;
+   existingDRId: text;
+   existingResellerId: text;
+   id: text;
+   newDRId: text;
+   product: text;
+   resellerId: text;
+   reviewAction: opt text;
+   reviewNote: opt text;
+   reviewedAt: opt int;
+   reviewedBy: opt principal;
+   status: DuplicateDRStatus;
+   submittedAt: int;
+ };
+type DuplicateCheckResult = 
+ record {
+   existingAccountId: opt text;
+   existingOwner: opt text;
+   isDuplicate: bool;
+   matchType: text;
+   matchingDomain: opt text;
+   suggestion: text;
+ };
+type DistributorProfile = 
+ record {
+   activationStatus: ActivationStatus;
+   companyId: text;
+   companyName: text;
+   createdAt: int;
+   emailDomain: text;
+   id: text;
+   logoKey: opt text;
+   primaryAdminEmail: text;
+   resellerIds: vec text;
+   setupComplete: bool;
+   updatedAt: int;
+   vendorIds: vec text;
+ };
+type DistributorInput = 
+ record {
+   companyId: text;
+   companyName: text;
+   emailDomain: text;
+   logoKey: opt text;
+   primaryAdminEmail: text;
+ };
+type DealStatus = 
+ variant {
+   Approved;
+   Draft;
+   Expired;
+   Lost;
+   Rejected;
+   Submitted;
+   UnderReview;
+   Won;
+ };
+type DealRegistrationInput = 
+ record {
+   accountId: text;
+   closeDate: int;
+   competitor: text;
+   customerDomain: text;
+   dealStage: text;
+   estimatedValue: float64;
+   notes: text;
+   opportunityName: text;
+   product: text;
+   quantity: nat;
+   resellerId: text;
+   status: DealStatus;
+   submittedBy: text;
+   submittedDate: opt int;
+   vendorOwnerId: text;
+ };
+type DealRegistration = 
+ record {
+   accountId: text;
+   closeDate: int;
+   competitor: text;
+   createdAt: int;
+   customerDomain: text;
+   dealStage: text;
+   estimatedValue: float64;
+   id: text;
+   notes: text;
+   opportunityName: text;
+   product: text;
+   quantity: nat;
+   resellerId: text;
+   status: DealStatus;
+   submittedBy: text;
+   submittedDate: opt int;
+   updatedAt: int;
+   vendorOwnerId: text;
+ };
+type DashboardTemplateType = 
+ variant {
+   Department;
+   OrgType;
+   Role;
+ };
+type DashboardLayout = 
+ record {
+   assignedTo: vec text;
+   createdAt: int;
+   createdBy: text;
+   description: text;
+   id: text;
+   isTemplate: bool;
+   name: text;
+   templateType: opt DashboardTemplateType;
+   updatedAt: int;
+   widgets: vec WidgetConfig;
+ };
+type CustomerIdValidationResult = 
+ record {
+   errorMessage: opt text;
+   formattedId: opt text;
+   isDuplicate: bool;
+   isValid: bool;
+ };
+type CustomerIdNumberSequencing = 
+ variant {
+   custom;
+   random;
+   sequential;
+ };
+type CustomerIdGenerateRequest = 
+ record {
+   manualInput: opt text;
+   regionCode: opt text;
+   vendorId: text;
+ };
+type CustomerIdFormatRuleInput = 
+ record {
+   allowedSeparators: vec text;
+   autoGenerationEnabled: bool;
+   characterLimit: nat;
+   duplicatePreventionEnabled: bool;
+   formatPattern: text;
+   manualOverridePermitted: bool;
+   numberSequencing: CustomerIdNumberSequencing;
+   prefixRules: text;
+   regionRules: vec text;
+ };
+type CustomerIdFormatRule = 
+ record {
+   allowedSeparators: vec text;
+   autoGenerationEnabled: bool;
+   characterLimit: nat;
+   duplicatePreventionEnabled: bool;
+   formatPattern: text;
+   lastSequenceNumber: nat;
+   manualOverridePermitted: bool;
+   numberSequencing: CustomerIdNumberSequencing;
+   prefixRules: text;
+   regionRules: vec text;
+   updatedAt: int;
+   vendorId: text;
+ };
+type CustomerIdAuditEntry = 
+ record {
+   accountId: text;
+   action: CustomerIdAuditAction;
+   customerId: text;
+   detail: text;
+   entryId: text;
+   performedAt: int;
+   performedBy: text;
+ };
+type CustomerIdAuditAction = 
+ variant {
+   created;
+   duplicateBlocked;
+   formatRuleChanged;
+   manualOverride;
+   mergeResolved;
+   updated;
+ };
+type CustomFieldVisibilityScope = 
+ variant {
+   allOrgs;
+   distributorOnly;
+   internalOnly;
+   resellerOnly;
+   roleSpecific;
+   vendorOnly;
+ };
+type CustomFieldValueRef = 
+ record {
+   fieldDefId: text;
+   value: text;
+ };
+type CustomFieldValueInput = 
+ record {
+   fieldDefId: text;
+   objectId: text;
+   objectType: CustomFieldObjectType;
+   uploadedFileKeys: vec text;
+   value: text;
+ };
+type CustomFieldValue = 
+ record {
+   createdAt: int;
+   fieldDefId: text;
+   objectId: text;
+   objectType: CustomFieldObjectType;
+   updatedAt: int;
+   updatedBy: text;
+   uploadedFileKeys: vec text;
+   value: text;
+ };
+type CustomFieldValidationRuleType = 
+ variant {
+   allowedValues;
+   conditionalRequired;
+   maxLength;
+   maxValue;
+   minLength;
+   minValue;
+   regex;
+   required;
+   unique;
+ };
+type CustomFieldValidationRule = 
+ record {
+   ruleType: CustomFieldValidationRuleType;
+   ruleValue: text;
+ };
+type CustomFieldValidationResult = 
+ record {
+   errorMessage: opt text;
+   fieldDefId: text;
+   isValid: bool;
+ };
+type CustomFieldType = 
+ variant {
+   attachment;
+   checkbox;
+   currency;
+   date;
+   datetime;
+   dropdown;
+   email;
+   longText;
+   multiSelect;
+   number;
+   organizationSelector;
+   percentage;
+   phoneNumber;
+   regionSelector;
+   tag;
+   "text";
+   url;
+   userSelector;
+ };
+type CustomFieldPermission = 
+ variant {
+   creator;
+   edit;
+   owner;
+   view;
+ };
+type CustomFieldObjectType = 
+ variant {
+   businessPlan;
+   customerAccount;
+   dealRegistration;
+   distributorProfile;
+   marketingActivity;
+   mdfRequest;
+   opportunity;
+   promotion;
+   resellerProfile;
+   userProfile;
+ };
+type CustomFieldDefInput = 
+ record {
+   allowedValues: vec text;
+   defaultValue: opt text;
+   editPermissions: vec CustomFieldPermission;
+   fieldDescription: text;
+   fieldLabel: text;
+   fieldName: text;
+   fieldType: CustomFieldType;
+   isApiVisible: bool;
+   isExportVisible: bool;
+   isReportable: bool;
+   isRequired: bool;
+   isSearchable: bool;
+   objectType: CustomFieldObjectType;
+   validationRules: vec CustomFieldValidationRule;
+   viewPermissions: vec CustomFieldPermission;
+   visibilityScope: CustomFieldVisibilityScope;
+ };
+type CustomFieldDef = 
+ record {
+   allowedValues: vec text;
+   createdAt: int;
+   createdBy: text;
+   defaultValue: opt text;
+   editPermissions: vec CustomFieldPermission;
+   fieldDescription: text;
+   fieldLabel: text;
+   fieldName: text;
+   fieldType: CustomFieldType;
+   id: text;
+   isApiVisible: bool;
+   isArchived: bool;
+   isExportVisible: bool;
+   isReportable: bool;
+   isRequired: bool;
+   isSearchable: bool;
+   lockedByVendor: bool;
+   objectType: CustomFieldObjectType;
+   updatedAt: int;
+   validationRules: vec CustomFieldValidationRule;
+   viewPermissions: vec CustomFieldPermission;
+   visibilityScope: CustomFieldVisibilityScope;
+ };
+type CustomFieldBulkValidationResult = 
+ record {
+   allValid: bool;
+   results: vec CustomFieldValidationResult;
+ };
+type CurrentQuarterResult = 
+ record {
+   daysElapsed: nat;
+   daysRemaining: nat;
+   progressPercent: float64;
+   quarterDef: QuarterDef;
+ };
+type Currency = 
+ variant {
+   AUD;
+   BTC;
+   CNY;
+   EUR;
+   GBP;
+   JPY;
+   USD;
+ };
+type CreditTopUp = 
+ record {
+   aiAdded: nat;
+   computeAdded: nat;
+   packageId: text;
+   simulatedAmount: float64;
+   storageAdded: nat;
+   timestamp: int;
+   userId: text;
+ };
+type CreditPackage = 
+ record {
+   aiCredits: nat;
+   computeCredits: nat;
+   description: text;
+   id: text;
+   name: text;
+   pricingGBP: float64;
+   storageCredits: nat;
+ };
+type CreditBalance = 
+ record {
+   aiCredits: nat;
+   computeCredits: nat;
+   storageCredits: nat;
+ };
+type ConversationType = 
+ variant {
+   AccountThread;
+   DealThread;
+   DirectMessage;
+   GroupMessage;
+   RenewalThread;
+ };
+type ConversationThread = 
+ record {
+   conversation: Conversation;
+   messages: vec Message;
+ };
+type ConversationId = text;
+type Conversation = 
+ record {
+   conversationType: ConversationType;
+   createdAt: int;
+   id: ConversationId;
+   lastMessageAt: int;
+   lastMessagePreview: text;
+   participantIds: vec text;
+   relatedEntityId: opt text;
+ };
+type ContactInput = 
+ record {
+   accountId: text;
+   contactOwner: text;
+   contactType: text;
+   email: text;
+   firstName: text;
+   jobTitle: text;
+   lastContactedDate: opt int;
+   lastName: text;
+   nextActionDate: opt int;
+   notes: text;
+   phone: text;
+ };
+type Contact = 
+ record {
+   accountId: text;
+   contactOwner: text;
+   contactType: text;
+   createdAt: int;
+   email: text;
+   firstName: text;
+   id: text;
+   jobTitle: text;
+   lastContactedDate: opt int;
+   lastName: text;
+   nextActionDate: opt int;
+   notes: text;
+   phone: text;
+ };
+type ConditionOperator = 
+ variant {
+   contains;
+   equals;
+   notEquals;
+ };
+type CompanyType = 
+ variant {
+   Distributor;
+   Reseller;
+   Vendor;
+ };
+type CompanyProfileInput = 
+ record {
+   companyId: text;
+   companyName: text;
+   companyType: CompanyType;
+   emailDomain: text;
+   logoKey: opt text;
+   partnerDomains: vec text;
+ };
+type CompanyProfile = 
+ record {
+   activationStatus: ActivationStatus;
+   claimedAt: opt int;
+   claimedBy: opt text;
+   companyId: text;
+   companyName: text;
+   companyType: CompanyType;
+   createdAt: int;
+   emailDomain: text;
+   id: text;
+   logoKey: opt text;
+   partnerDomains: vec text;
+   setupComplete: bool;
+   vendorId: opt text;
+ };
+type ChatRole = 
+ variant {
+   Assistant;
+   System;
+   User;
+ };
+type ChatMessage = 
+ record {
+   aiSource: text;
+   content: text;
+   context: opt text;
+   id: text;
+   role: ChatRole;
+   suggestedActions: vec text;
+   timestamp: int;
+ };
+type BusinessPlanInput = 
+ record {
+   activities: vec BusinessPlanActivity;
+   month: opt nat;
+   objective: text;
+   partnerId: text;
+   pipelineTarget: float64;
+   planType: PlanType;
+   quarter: opt nat;
+   revenueTarget: float64;
+   vendorOwnerId: text;
+   year: nat;
+ };
+type BusinessPlanActivity = 
+ record {
+   description: text;
+   dueDate: int;
+   id: text;
+   notes: text;
+   owner: text;
+   status: ActivityStatus;
+ };
+type BusinessPlan = 
+ record {
+   activities: vec BusinessPlanActivity;
+   createdAt: int;
+   id: text;
+   month: opt nat;
+   objective: text;
+   partnerId: text;
+   pipelineTarget: float64;
+   planType: PlanType;
+   quarter: opt nat;
+   revenueTarget: float64;
+   vendorOwnerId: text;
+   year: nat;
+ };
+type BulkImportResult = 
+ record {
+   created: nat;
+   errors: vec text;
+   skipped: nat;
+ };
+type AuthSettings = 
+ record {
+   internetIdentityEnabled: bool;
+   lockoutDurationMinutes: nat;
+   lockoutEnabled: bool;
+   maxFailedAttempts: nat;
+   mfaEnabled: bool;
+   mfaGracePeriodDays: nat;
+   mfaOptionalEnrollment: bool;
+   mfaRequiredForAdmins: bool;
+   mfaRequiredForAll: bool;
+   orgId: text;
+   passwordComplexityRequired: bool;
+   passwordExpiryDays: nat;
+   passwordLoginEnabled: bool;
+   passwordMaxLength: nat;
+   passwordMinLength: nat;
+   passwordReusePreventCount: nat;
+   permanentLockUntilReset: bool;
+   sessionTimeoutMinutes: nat;
+   ssoEnabled: bool;
+ };
+type AuthError = 
+ variant {
+   AccountInactive;
+   AccountLocked: record {lockedUntil: int;};
+   CompanyNotFound;
+   ConfigError: text;
+   InvalidCredentials;
+   MfaAlreadyEnrolled;
+   MfaInvalidCode;
+   MfaNotEnrolled;
+   MfaRequired;
+   NotAuthorized;
+   PasswordAuthDisabled;
+   PasswordReused;
+   PasswordTooWeak: vec text;
+   SessionExpired;
+   SessionInvalid;
+   TokenAlreadyUsed;
+   TokenExpired;
+   TokenInvalid;
+   UserNotFound;
+ };
+type AuditEntry = 
+ record {
+   action: text;
+   details: text;
+   entityId: text;
+   entityType: text;
+   id: text;
+   timestamp: int;
+   userId: text;
+ };
+type AlertType = 
+ variant {
+   BusinessPlanDue;
+   CustomerRisk;
+   DealExpiry;
+   DuplicateAccount;
+   LeadToCall;
+   MissingContact;
+   PromoExpiry;
+   RenewalDue;
+ };
+type AlertSeverity = 
+ variant {
+   High;
+   Low;
+   Medium;
+ };
+type AlertInput = 
+ record {
+   accountId: opt text;
+   alertType: AlertType;
+   message: text;
+   severity: AlertSeverity;
+   userId: text;
+ };
+type AlertFrequency = 
+ variant {
+   Daily;
+   Hourly;
+   Realtime;
+   Weekly;
+ };
+type AlertDeliveryMode = 
+ variant {
+   Both;
+   DashboardOnly;
+   MessageOnly;
+ };
+type Alert = 
+ record {
+   accountId: opt text;
+   alertType: AlertType;
+   createdAt: int;
+   id: text;
+   isRead: bool;
+   message: text;
+   severity: AlertSeverity;
+   userId: text;
+ };
+type ActivityStatus = 
+ variant {
+   Completed;
+   InProgress;
+   Overdue;
+   Pending;
+ };
+type ActiveResetTokenView = 
+ record {
+   createdAt: int;
+   expiresAt: int;
+   tokenPrefix: text;
+   userEmail: text;
+   userId: text;
+ };
+type ActivationStatus = 
+ variant {
+   Active;
+   Pending;
+   Suspended;
+ };
+type AccountTab = 
+ record {
+   hiddenForDepts: vec text;
+   hiddenForRoles: vec text;
+   id: text;
+   isCustom: bool;
+   isVisible: bool;
+   sortOrder: nat;
+   tabLabel: text;
+ };
+type AccountStatus = 
+ variant {
+   Active;
+   AtRisk;
+   Churned;
+   Prospect;
+ };
+type AccountSite = 
+ record {
+   country: text;
+   distributorId: opt text;
+   productLines: vec text;
+   region: text;
+   resellerId: opt text;
+   siteId: text;
+   siteName: text;
+ };
+type AccountReassignmentEntry = 
+ record {
+   approvalStatus: ReassignmentApprovalStatus;
+   changedAt: int;
+   changedBy: text;
+   entryId: text;
+   newOwnerId: text;
+   ownerType: OwnerType;
+   previousOwnerId: text;
+   reason: text;
+ };
+type AccountLayout = 
+ record {
+   createdAt: int;
+   createdBy: text;
+   description: text;
+   fields: vec LayoutField;
+   id: LayoutId;
+   isDefault: bool;
+   name: text;
+   sections: vec LayoutSection;
+   tabs: vec AccountTab;
+   updatedAt: int;
+   version: nat;
+   visibilityRules: vec VisibilityRule__1;
+ };
+type AccountInput = 
+ record {
+   accountName: text;
+   contractType: text;
+   customerDomain: text;
+   customerIdNumber: opt text;
+   distributorIds: vec text;
+   estimatedRenewalValue: float64;
+   licenceQuantity: nat;
+   productList: vec text;
+   renewalDate: int;
+   resellerOwnerId: text;
+   sites: vec AccountSite;
+   status: AccountStatus;
+   vendorOwnerId: text;
+ };
+type Account = 
+ record {
+   accountName: text;
+   contractType: text;
+   createdAt: int;
+   customerDomain: text;
+   customerIdNumber: opt text;
+   distributorIds: vec text;
+   estimatedRenewalValue: float64;
+   id: text;
+   licenceQuantity: nat;
+   productList: vec text;
+   reassignmentLog: vec AccountReassignmentEntry;
+   renewalDate: int;
+   resellerOwnerId: text;
+   sites: vec AccountSite;
+   status: AccountStatus;
+   updatedAt: int;
+   vendorOwnerId: text;
+ };
+type AIProviderType = 
+ variant {
+   AnthropicClaude;
+   AzureOpenAI;
+   CustomEndpoint;
+   GoogleGemini;
+   LocalLLM;
+   Mistral;
+   Native;
+   OpenAI;
+ };
+type AIProviderStatus = 
+ variant {
+   Active;
+   Disabled;
+   Testing;
+ };
+type AIProviderConfig = 
+ record {
+   deploymentName: opt text;
+   endpointUrl: opt text;
+   maskedApiKey: opt text;
+   maxTokens: nat;
+   modelName: opt text;
+   orgId: opt text;
+   providerId: text;
+   region: opt text;
+   temperature: float64;
+   timeoutSecs: nat;
+ };
+type AIProvider = 
+ record {
+   createdAt: int;
+   createdBy: text;
+   id: text;
+   isShared: bool;
+   name: text;
+   providerType: AIProviderType;
+   status: AIProviderStatus;
+   workspaceId: text;
+ };
+type AIAuditEntry = 
+ record {
+   action: AIAuditAction;
+   details: text;
+   id: text;
+   organizationId: text;
+   providerId: opt text;
+   timestamp: int;
+   userId: text;
+ };
+type AIAuditAction = 
+ variant {
+   ApiKeyUpdated;
+   ChatMessage;
+   ProviderAdded;
+   ProviderDeleted;
+   ProviderDisabled;
+   ProviderEnabled;
+   ProviderUpdated;
+   SharingGranted;
+   SharingRevoked;
+   TestAttempt;
+ };
+type AIAccessRuleTarget = 
+ variant {
+   AllUsers;
+   ByDepartment: text;
+   ByRole: text;
+   SpecificUser: text;
+ };
+type AIAccessRule = 
+ record {
+   active: bool;
+   grantedAt: int;
+   grantedBy: text;
+   grantedToType: AIAccessRuleTarget;
+   id: text;
+   organizationId: text;
+   providerId: text;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  activateDistributor: (id: text) -> (Result_10);
+  activateReseller: (resellerId: text) -> (Result_28);
+  activateUser: (userId: text) -> (Result_2);
+  addAccountSite: (accountId: text, site: AccountSite) -> (Result_14);
+  addDistributorToAccount: (accountId: text, distributorId: text, callerRole:
+   text) -> (Result_14);
+  addResellerToDistributor: (distributorId: text, resellerId: text) ->
+   (Result_10);
+  addTierOverride: (resellerId: text, permission: TierPermission, granted:
+   bool, reason: text) -> (bool);
+  addTopUp: (orgId: text, topUp: CreditTopUp) -> (Result_24);
+  addVendorRelationship: (distributorId: text, vendorId: text) -> (Result_10);
+  aiAddProvider: (provider: AIProvider, config: AIProviderConfig) -> (bool);
+  aiCreateChatSession: (providerId: text, contextType: opt text, contextId:
+   opt text) -> (ForgeAIChatSession);
+  aiDeleteProvider: (providerId: text) -> (bool);
+  aiDisableProvider: (providerId: text) -> (bool);
+  aiEnableProvider: (providerId: text) -> (bool);
+  aiGetChatSession: (sessionId: text) -> (opt ForgeAIChatSession) query;
+  aiGetProvider: (providerId: text) -> (opt AIProvider) query;
+  aiGetProviderConfig: (providerId: text) -> (opt AIProviderConfig) query;
+  aiGrantAccess: (rule: AIAccessRule) -> (bool);
+  aiListAccessRules: (providerId: text) -> (vec AIAccessRule) query;
+  aiListAuditLog: (organizationId: text, limit: nat) ->
+   (vec AIAuditEntry) query;
+  aiListChatSessions: () -> (vec ForgeAIChatSession);
+  aiListProviders: (workspaceId: text) -> (vec AIProvider) query;
+  aiResolveProviderForCaller: (organizationId: text, role: text, department:
+   opt text) -> (opt text);
+  aiRevokeAccess: (ruleId: text) -> (bool);
+  aiSendChatMessage: (sessionId: text, content: text) -> (ChatMessage);
+  aiTestProviderConnection: (providerId: text) -> (text);
+  aiUpdateApiKey: (providerId: text, maskedKey: text) -> (bool);
+  aiUpdateProviderConfig: (config: AIProviderConfig) -> (bool);
+  archiveCustomFieldDef: (id: text) -> (bool);
+  archiveOpportunity: (id: text) -> (bool);
+  assignCallerUserRole: (user: principal, role: UserRole__1) -> ();
+  assignTierToReseller: (resellerId: text, tier: PartnerTier) -> (bool);
+  bulkCreateAccounts: (inputs: vec AccountInput) -> (BulkImportResult);
+  bulkCreateContacts: (inputs: vec ContactInput) -> (BulkImportResult);
+  bulkSetCustomFieldValues: (inputs: vec CustomFieldValueInput) ->
+   (CustomFieldBulkValidationResult);
+  cancelInvitation: (invitationId: text) -> (Result_3);
+  cancelMdfRequest: (id: text) -> (bool);
+  checkAccountDuplicate: (name: text, domain: text) ->
+   (DuplicateCheckResult) query;
+  checkVisibility: (orgId: text, objectType: CustomFieldObjectType, role:
+   text, region: opt text) -> (bool) query;
+  cloneDashboardLayout: (layoutId: text, newName: text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  cloneTierPermissions: (sourceTier: PartnerTier, targetTier: PartnerTier) ->
+   (bool);
+  completeSetup: (companyId: text) -> (Result_28);
+  createAccount: (input: AccountInput) -> (Result_14);
+  createAlert: (input: AlertInput) -> (Result_31);
+  createBusinessPlan: (input: BusinessPlanInput) -> (Result_13);
+  createCompanyProfile: (input: CompanyProfileInput) -> (Result_28);
+  createContact: (input: ContactInput) -> (Result_12);
+  createCustomFieldDef: (input: CustomFieldDefInput) -> (CustomFieldDef);
+  createDealRegistration: (input: DealRegistrationInput) -> (Result_11);
+  createDirectMessage: (recipientId: text, content: text, attachmentUrls:
+   vec text) -> (Result_30);
+  createDistributor: (vendorCompanyId: text, input: DistributorInput) ->
+   (Result_10);
+  createGroupConversation: (participantIds: vec text, entityType: text,
+   entityId: opt text) -> (Result_29);
+  createMarketingActivity: (input: MarketingActivityInput) ->
+   (MarketingActivity);
+  createMdfRequest: (vendorOwnerId: text, input: MdfRequestInput) ->
+   (MdfRequest);
+  createNewsItem: (input: NewsItemInput) -> (Result_7);
+  createNote: (input: NoteInput) -> (Result_6);
+  createOpportunity: (input: OpportunityInput) -> (Opportunity);
+  createPriceList: (input: PriceListInput) -> (Result_5);
+  createPromotion: (input: PromotionInput) -> (Result_4);
+  createReseller: (vendorCompanyId: text, input: ResellerInput) ->
+   (Result_28);
+  createVisibilityRule: (orgId: text, input: VisibilityRuleInput) ->
+   (VisibilityRule);
+  deactivateReseller: (resellerId: text) -> (Result_28);
+  deactivateUser: (userId: text) -> (Result_2);
+  decideMdfRequest: (id: text, input: MdfRequestDecisionInput) ->
+   (opt MdfRequest);
+  deleteAccount: (id: text) -> (Result_3);
+  deleteAccountLayout: (layoutId: text) -> (variant {
+                                              err: text;
+                                              ok;
+                                            });
+  deleteContact: (id: text) -> (Result_3);
+  deleteDealRegistration: (id: text) -> (Result_3);
+  deleteNewsItem: (id: text) -> (Result_3);
+  deleteNote: (id: text) -> (Result_3);
+  deleteNotification: (id: text) -> (Result_3);
+  deletePriceList: (id: text) -> (Result_3);
+  deletePromotion: (id: text) -> (Result_3);
+  deleteTargetAssignment: (assignmentId: text) -> (Result_3);
+  deleteVisibilityRule: (id: text) -> (bool);
+  dismissAlert: (id: text) -> (Result_3);
+  dismissForgeAIRecommendation: (id: text) -> (Result_3);
+  estimateDaysRemaining: (orgId: text) -> (nat) query;
+  estimateMonthlyUsage: (orgId: text) -> (nat) query;
+  forgotPassword: (email: text, companyType: CompanyType, companyId: 
+   text) -> (Result_27);
+  generateCustomerId: (request: CustomerIdGenerateRequest) ->
+   (CustomerIdValidationResult);
+  getAccount: (id: text) -> (opt Account) query;
+  getAccountLayouts: () -> (vec AccountLayout) query;
+  getAccountReassignmentLog: (accountId: text) ->
+   (vec AccountReassignmentEntry) query;
+  getAccountsByDistributor: (distributorId: text) -> (vec Account) query;
+  getAccountsByReseller: (resellerId: text) -> (vec Account) query;
+  getActiveResetTokens: (companyId: text) -> (vec ActiveResetTokenView) query;
+  getAllAccounts: () -> (vec Account) query;
+  getAllBusinessPlans: () -> (vec BusinessPlan) query;
+  getAllDealRegistrations: () -> (vec DealRegistration) query;
+  getAllNews: () -> (vec NewsItem) query;
+  getAllPriceLists: () -> (vec PriceList) query;
+  getAllPromotions: () -> (vec Promotion) query;
+  getAuditLog: (limit: nat) -> (vec AuditEntry) query;
+  getAuthSettings: (orgId: text) -> (AuthSettings) query;
+  getBusinessPlan: (id: text) -> (opt BusinessPlan) query;
+  getBusinessPlansByPartner: (partnerId: text) -> (vec BusinessPlan) query;
+  getCallerUserRole: () -> (UserRole__1) query;
+  getCompanyProfile: (id: text) -> (opt CompanyProfile) query;
+  getContact: (id: text) -> (opt Contact) query;
+  getContactsByAccount: (accountId: text) -> (vec Contact) query;
+  getConversationMessages: (conversationId: text, limit: nat, offset: 
+   nat) -> (vec Message) query;
+  getConversationThread: (conversationId: text) ->
+   (opt ConversationThread) query;
+  getCreditBalance: (orgId: text) -> (CreditBalance) query;
+  getCreditPackages: () -> (vec CreditPackage) query;
+  getCurrentQuarter: () -> (opt CurrentQuarterResult) query;
+  getCustomFieldDef: (id: text) -> (opt CustomFieldDef) query;
+  getCustomFieldValues: (objectId: text, objectType:
+   CustomFieldObjectType) -> (vec CustomFieldValue) query;
+  getCustomerIdAuditLog: (vendorId: text) -> (vec CustomerIdAuditEntry) query;
+  getCustomerIdFormatRule: (vendorId: text) ->
+   (opt CustomerIdFormatRule) query;
+  getDashboardLayouts: () -> (vec DashboardLayout) query;
+  getDashboardTemplates: () -> (vec DashboardLayout) query;
+  getDealRegistration: (id: text) -> (opt DealRegistration) query;
+  getDealRegistrationReport: (filters: ReportFilters) ->
+   (vec DealRegistration) query;
+  getDealRegistrationsByReseller: (resellerId: text) ->
+   (vec DealRegistration) query;
+  getDistributor: (id: text) -> (opt DistributorProfile) query;
+  getDistributorCustomerAccounts: (distributorId: text) ->
+   (vec Account) query;
+  getDistributorResellers: (distributorId: text) -> (vec text) query;
+  getDuplicateDRQueue: () -> (vec DuplicateDRRecord) query;
+  getEffectiveTierPermissions: (resellerId: text) ->
+   (vec TierPermission) query;
+  getFailedLoginHistory: (userId: text, limit: nat) ->
+   (vec FailedLoginEvent) query;
+  getFiscalYearConfig: () -> (opt FiscalYearConfig) query;
+  getForexConfig: () -> (ForexConfig) query;
+  getForgeAIAuditLog: (limit: nat) -> (vec ForgeAIAuditEntry) query;
+  getForgeAIRecommendations: () -> (vec ForgeAIRecommendation) query;
+  getForgeAISettings: () -> (ForgeAISettings) query;
+  getGapNotificationConfig: () -> (GapNotificationConfig) query;
+  getHighRiskAccounts: () -> (vec Account) query;
+  getInvitations: (companyId: text) -> (vec ResidentInvitation) query;
+  getLatestRate: (from: Currency, to: Currency) ->
+   (opt ExchangeRateSnapshot) query;
+  getLayoutAuditLog: () -> (vec LayoutAuditEntry) query;
+  getLayoutForUser: (orgType: text, department: text, role: text) ->
+   (opt AccountLayout) query;
+  getLayoutPermissions: (userId: text) -> (opt LayoutPermissions) query;
+  getLockedAccounts: (companyId: text) -> (vec LockedAccountInfo) query;
+  getMarketingActivity: (id: text) -> (opt MarketingActivity) query;
+  getMdfRequest: (id: text) -> (opt MdfRequest) query;
+  getMeasureConfig: () -> (TargetMeasureConfig) query;
+  getMyAlerts: () -> (vec Alert) query;
+  getMyCompany: () -> (opt CompanyProfile) query;
+  getMyNotifications: () -> (vec InAppNotification) query;
+  getMyProfile: () -> (opt UserProfileDetail) query;
+  getMyUserProfile: () -> (opt UserProfile) query;
+  getNewsItem: (id: text) -> (opt NewsItem) query;
+  getNextAvailableResellerId: (vendorId: text, prefix: text) ->
+   (Result_26) query;
+  getNotesByAccount: (accountId: text) -> (vec Note) query;
+  getOpportunity: (id: text) -> (opt Opportunity) query;
+  getOrgForgeAIAlertSettings: (orgId: text) ->
+   (OrgForgeAIAlertSettings) query;
+  getOrgNotificationRules: (orgId: text) -> (vec NotificationRule) query;
+  getOrgVisibilityConfig: (orgId: text) -> (OrgVisibilityConfig) query;
+  getOverridesForReseller: (resellerId: text) -> (vec TierOverride) query;
+  getPartnerRankings: (quarterKey: text) -> (vec ResellerQTDRanking) query;
+  getPipelineReport: (filters: ReportFilters) -> (vec DealRegistration) query;
+  getPriceList: (id: text) -> (opt PriceList) query;
+  getPromotion: (id: text) -> (opt Promotion) query;
+  getPromotionsForPartner: (partnerId: text) -> (vec Promotion) query;
+  getQTDMetrics: (filters: QTDFilters) -> (QTDMetrics) query;
+  getRateAtDate: (from: Currency, to: Currency, date: Timestamp) ->
+   (opt ExchangeRateSnapshot) query;
+  getRenewalReport: (filters: ReportFilters) -> (vec Account) query;
+  getRenewalsDue: (daysAhead: nat) -> (vec Account) query;
+  getResellerTier: (resellerId: text) -> (opt TierAssignment) query;
+  getResellersForVendor: (vendorId: text) -> (vec CompanyProfile) query;
+  getSsoConfig: (orgId: text) -> (opt SSOConfig) query;
+  getTargetAssignments: (measureId: opt TargetMeasureId, periodKey:
+   opt text) -> (vec TargetAssignment) query;
+  getTierConfigs: () -> (vec TierConfig) query;
+  getTopUpHistory: (orgId: text) -> (vec CreditTopUp) query;
+  getUnlockRequests: (orgId: text) -> (vec UnlockRequest) query;
+  getUnreadNotificationCount: () -> (nat) query;
+  getUsageHistory: (orgId: text) -> (vec UsageEvent) query;
+  getUsageTrend: (orgId: text) -> (text) query;
+  getUserProfile: (targetUserId: text) -> (opt UserProfileDetail) query;
+  getUsersByCompany: (companyId: text) -> (vec UserProfile) query;
+  getVisibilityRulesForLayout: (layoutId: text) ->
+   (vec VisibilityRule__1) query;
+  getVisibleNews: (callerCompanyType: text, callerCompanyId: text) ->
+   (vec NewsItem) query;
+  grantForgeAIAlertsPermission: (orgId: text, targetPrincipal: principal) ->
+   (Result_3);
+  initUserAuthState: (userId: text, companyId: text) -> ();
+  inviteUser: (input: InviteUserInput) -> (Result_25);
+  isCallerAdmin: () -> (bool) query;
+  isCustomerIdDuplicate: (vendorId: text, customerId: text) -> (bool) query;
+  listCustomFieldDefs: (objectType: CustomFieldObjectType) ->
+   (vec CustomFieldDef) query;
+  listDistributors: () -> (vec DistributorProfile) query;
+  listDistributorsByVendor: (vendorId: text) ->
+   (vec DistributorProfile) query;
+  listMarketingActivities: (vendorId: opt text, resellerId: opt text,
+   distributorId: opt text, activityType: opt MarketingActivityType, status:
+   opt MarketingActivityStatus) -> (vec MarketingActivity) query;
+  listMarketingActivitiesForCaller: (vendorId: opt text, callerOrgId: 
+   text, callerRole: text, fieldDefId: opt text, fieldValue: opt text) ->
+   (vec MarketingActivity) query;
+  listMdfRequests: (vendorId: opt text, requestorOrgId: opt text, status:
+   opt MdfRequestStatus, budgetYear: opt nat) -> (vec MdfRequest) query;
+  listMdfRequestsForCaller: (vendorId: opt text, callerOrgId: text,
+   callerRole: text, fieldDefId: opt text, fieldValue: opt text) ->
+   (vec MdfRequest) query;
+  listMyConversations: () -> (vec Conversation) query;
+  listOpportunities: (vendorId: opt text, resellerId: opt text,
+   distributorId: opt text, accountId: opt text, stage: opt OpportunityStage,
+   activeOnly: bool) -> (vec Opportunity) query;
+  listOpportunitiesForCaller: (vendorId: opt text, callerOrgId: text,
+   callerRole: text, fieldDefId: opt text, fieldValue: opt text) ->
+   (vec Opportunity) query;
+  listVisibilityRules: (orgId: text, activeOnly: bool) ->
+   (vec VisibilityRule) query;
+  listWorkspaceProfiles: (companyId: text) -> (vec UserProfileDetail) query;
+  logAccountReassignment: (accountId: text, entry:
+   AccountReassignmentEntry) -> (Result_3);
+  loginWithEmailPassword: (email: text, password: text, companyType:
+   CompanyType, companyId: text) -> (Result_1);
+  logout: (token: text) -> ();
+  mapCsvHeadersToCustomFields: (objectType: CustomFieldObjectType, headers:
+   vec text) -> (vec record {
+                       text;
+                       opt text;
+                     }) query;
+  markAlertRead: (id: text) -> (Result_3);
+  markMdfRequestPaid: (id: text) -> (bool);
+  markMessagesRead: (conversationId: text, upToMessageId: text) -> (Result_3);
+  markNotificationRead: (id: text) -> (Result_3);
+  reassignAccountReseller: (accountId: text, newResellerId: text) ->
+   (Result_14);
+  recordMarketingActivityRoi: (id: text, roi: int) -> (bool);
+  recordUsageEvent: (event: UsageEvent) -> (Result_24);
+  regenerateRecoveryCodes: (sessionToken: text) -> (Result);
+  registerCustomerId: (vendorId: text, customerId: text, accountId: text) ->
+   (bool);
+  removeAccountSite: (accountId: text, siteId: text) -> (Result_14);
+  removeDistributorFromAccount: (accountId: text, distributorId: text) ->
+   (Result_14);
+  resetMfaForUser: (userId: text) -> (Result_2);
+  resetPasswordWithToken: (tokenValue: text, newPassword: text, companyId:
+   text) -> (Result_2);
+  resolveUnlockRequest: (requestId: text, approved: bool) -> (Result_3);
+  reviewDuplicateDR: (id: text, action: DuplicateDRStatus, note: text) ->
+   (bool);
+  revokeAllSessions: (userId: text) -> ();
+  revokeForgeAIAlertsPermission: (orgId: text, targetPrincipal: principal) ->
+   (Result_3);
+  revokePasswordResetToken: (tokenValue: text) -> (Result_2);
+  runForgeAIAnalysis: () -> (Result_23);
+  runNLQuery: (naturalLanguageQuery: text) -> (Result_22);
+  runSmartQuery: (queryType: SmartQueryType, filter: SmartQueryFilter) ->
+   (Result_21) query;
+  saveAccountLayout: (layout: AccountLayout) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  saveDashboardLayout: (layout: DashboardLayout) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  saveFiscalYearConfig: (input: FiscalYearConfigInput) -> (Result_20);
+  saveTargetAssignment: (input: TargetAssignmentInput) -> (Result_19);
+  saveUserProfile: (input: UserProfileInput) -> (Result_18);
+  saveVisibilityRule: (rule: VisibilityRule__1) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  searchCustomFieldValues: (objectType: CustomFieldObjectType, fieldDefId:
+   text, searchTerm: text) -> (vec text) query;
+  searchMyMessages: (searchQuery: text) -> (vec Message) query;
+  sendMessageToConversation: (conversationId: text, content: text,
+   attachmentUrls: vec text) -> (Result_17);
+  setCustomFieldValue: (input: CustomFieldValueInput) ->
+   (CustomFieldValidationResult);
+  setPassword: (newPassword: text, companyId: text) -> (Result_2);
+  setupMfa: (sessionToken: text) -> (Result_16);
+  shareMaskAuthority: (providerId: text, targetOrg: text) -> (bool);
+  storeExchangeRates: (snapshots: vec ExchangeRateSnapshot) -> ();
+  submitUnlockRequest: (ruleId: text, ruleName: text, requestingOrgId: 
+   text, requestingAdminName: text, targetOrgId: text, lockSource:
+   LockSource, reason: text, targetAdminPrincipal: principal) -> (Result_15);
+  suspendDistributor: (id: text) -> (Result_10);
+  unlockUserAccount: (userId: text, reason: text) -> (Result_2);
+  updateAccount: (id: text, input: AccountInput) -> (Result_14);
+  updateAccountSite: (accountId: text, site: AccountSite) -> (Result_14);
+  updateAuthSettings: (orgId: text, settings: AuthSettings) -> (Result_2);
+  updateBusinessPlan: (id: text, input: BusinessPlanInput) -> (Result_13);
+  updateBusinessPlanActivity: (planId: text, activityId: text, status:
+   ActivityStatus) -> (Result_13);
+  updateContact: (id: text, input: ContactInput) -> (Result_12);
+  updateCustomFieldDef: (id: text, input: CustomFieldDefInput) ->
+   (opt CustomFieldDef);
+  updateDealRegistration: (id: text, input: DealRegistrationInput) ->
+   (Result_11);
+  updateDealStatus: (id: text, status: DealStatus) -> (Result_11);
+  updateDistributor: (id: text, input: DistributorInput) -> (Result_10);
+  updateForexConfig: (config: ForexConfig) -> (bool);
+  updateForgeAIAlertConfig: (orgId: text, config: ForgeAIAlertConfig) ->
+   (Result_3);
+  updateForgeAISettings: (settings: ForgeAISettings) -> (Result_3);
+  updateGapNotificationConfig: (cfg: GapNotificationConfig) -> (Result_3);
+  updateLayoutPermissions: (userId: text, perms: LayoutPermissions) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  updateMarketingActivity: (id: text, input: MarketingActivityUpdateInput) ->
+   (opt MarketingActivity);
+  updateMeasureName: (measureId: TargetMeasureId, newName: text) ->
+   (Result_9);
+  updateMyProfile: (input: UserProfileDetailInput) -> (Result_8);
+  updateNewsItem: (id: text, input: NewsItemInput) -> (Result_7);
+  updateNote: (id: text, content: text) -> (Result_6);
+  updateOpportunity: (id: text, input: OpportunityUpdateInput) ->
+   (opt Opportunity);
+  updateOrgVisibilityConfig: (orgId: text, input:
+   OrgVisibilityConfigInput) -> (OrgVisibilityConfig);
+  updatePriceList: (id: text, input: PriceListInput) -> (Result_5);
+  updatePromotion: (id: text, input: PromotionInput) -> (Result_4);
+  updateSecondaryAdminPermissions: (userId: text, permissions: vec text) ->
+   (Result_3);
+  updateSsoConfig: (orgId: text, config: SSOConfig) -> (Result_2);
+  updateTierPermissions: (tier: PartnerTier, permissions: vec TierPermission,
+   maxSecondaryAdmins: nat) -> (bool);
+  updateVisibilityRule: (id: text, input: VisibilityRuleInput) ->
+   (opt VisibilityRule);
+  upsertCustomerIdFormatRule: (vendorId: text, input:
+   CustomerIdFormatRuleInput) -> (CustomerIdFormatRule);
+  validateCustomFieldValues: (inputs: vec CustomFieldValueInput) ->
+   (CustomFieldBulkValidationResult) query;
+  validateCustomerId: (vendorId: text, customerId: text) ->
+   (CustomerIdValidationResult) query;
+  validateMfaToken: (sessionToken: text, totpCode: text, companyId: text) ->
+   (Result_1);
+  validateSession: (token: text) -> (Result_1) query;
+  verifyMfaEnrollment: (sessionToken: text, totpCode: text) -> (Result);
+}

@@ -1,0 +1,1457 @@
+// Version: 1.0.0
+type AIAccessRuleTarget__10647309 =
+  {#AllUsers; #ByDepartment : Text; #ByRole : Text; #SpecificUser : Text};
+type AIAccessRule__127713341 =
+  {
+    active : Bool;
+    grantedAt : Int;
+    grantedBy : Text;
+    grantedToType : AIAccessRuleTarget__10647309;
+    id : Text;
+    organizationId : Text;
+    providerId : Text
+  };
+type AIAuditAction__538545410 =
+  {
+    #ApiKeyUpdated;
+    #ChatMessage;
+    #ProviderAdded;
+    #ProviderDeleted;
+    #ProviderDisabled;
+    #ProviderEnabled;
+    #ProviderUpdated;
+    #SharingGranted;
+    #SharingRevoked;
+    #TestAttempt
+  };
+type AIAuditEntry__224544961 =
+  {
+    action : AIAuditAction__538545410;
+    details : Text;
+    id : Text;
+    organizationId : Text;
+    providerId : ?Text;
+    timestamp : Int;
+    userId : Text
+  };
+type AIProviderConfig__957032160 =
+  {
+    deploymentName : ?Text;
+    endpointUrl : ?Text;
+    maskedApiKey : ?Text;
+    maxTokens : Nat;
+    modelName : ?Text;
+    orgId : ?Text;
+    providerId : Text;
+    region : ?Text;
+    temperature : Float;
+    timeoutSecs : Nat
+  };
+type AIProviderStatus__78832984 = {#Active; #Disabled; #Testing};
+type AIProviderType__959775510 =
+  {
+    #AnthropicClaude;
+    #AzureOpenAI;
+    #CustomEndpoint;
+    #GoogleGemini;
+    #LocalLLM;
+    #Mistral;
+    #Native;
+    #OpenAI
+  };
+type AIProvider__562119276 =
+  {
+    createdAt : Int;
+    createdBy : Text;
+    id : Text;
+    isShared : Bool;
+    name : Text;
+    providerType : AIProviderType__959775510;
+    status : AIProviderStatus__78832984;
+    workspaceId : Text
+  };
+type AccountLayout__14124340 =
+  {
+    createdAt : Int;
+    createdBy : Text;
+    description : Text;
+    fields : [LayoutField__692213217];
+    id : LayoutId__101948996;
+    isDefault : Bool;
+    name : Text;
+    sections : [LayoutSection__412901089];
+    tabs : [AccountTab__675022152];
+    updatedAt : Int;
+    version : Nat;
+    visibilityRules : [VisibilityRule__775054769]
+  };
+type AccountReassignmentEntry__680454441 =
+  {
+    approvalStatus : ReassignmentApprovalStatus__793214240;
+    changedAt : Int;
+    changedBy : Text;
+    entryId : Text;
+    newOwnerId : Text;
+    ownerType : OwnerType__370206125;
+    previousOwnerId : Text;
+    reason : Text
+  };
+type AccountSite__687580746 =
+  {
+    country : Text;
+    distributorId : ?Text;
+    productLines : [Text];
+    region : Text;
+    resellerId : ?Text;
+    siteId : Text;
+    siteName : Text
+  };
+type AccountStatus__769886260 = {#Active; #AtRisk; #Churned; #Prospect};
+type AccountTab__675022152 =
+  {
+    hiddenForDepts : [Text];
+    hiddenForRoles : [Text];
+    id : Text;
+    isCustom : Bool;
+    isVisible : Bool;
+    sortOrder : Nat;
+    tabLabel : Text
+  };
+type Account__1026151617 =
+  {
+    accountName : Text;
+    contractType : Text;
+    createdAt : Int;
+    customerDomain : Text;
+    customerIdNumber : ?Text;
+    distributorIds : [Text];
+    estimatedRenewalValue : Float;
+    id : Text;
+    licenceQuantity : Nat;
+    productList : [Text];
+    reassignmentLog : [AccountReassignmentEntry__680454441];
+    renewalDate : Int;
+    resellerOwnerId : Text;
+    sites : [AccountSite__687580746];
+    status : AccountStatus__769886260;
+    updatedAt : Int;
+    vendorOwnerId : Text
+  };
+type ActivationStatus__512591650 = {#Active; #Pending; #Suspended};
+type ActivityStatus__842094382 =
+  {#Completed; #InProgress; #Overdue; #Pending};
+type AlertDeliveryMode__351724999 = {#Both; #DashboardOnly; #MessageOnly};
+type AlertFrequency__123313786 = {#Daily; #Hourly; #Realtime; #Weekly};
+type AlertSeverity__611659183 = {#High; #Low; #Medium};
+type AlertType__1022437099 =
+  {
+    #BusinessPlanDue;
+    #CustomerRisk;
+    #DealExpiry;
+    #DuplicateAccount;
+    #LeadToCall;
+    #MissingContact;
+    #PromoExpiry;
+    #RenewalDue
+  };
+type Alert__607610635 =
+  {
+    accountId : ?Text;
+    alertType : AlertType__1022437099;
+    createdAt : Int;
+    id : Text;
+    isRead : Bool;
+    message : Text;
+    severity : AlertSeverity__611659183;
+    userId : Text
+  };
+type AuditEntry__454487189 =
+  {
+    action : Text;
+    details : Text;
+    entityId : Text;
+    entityType : Text;
+    id : Text;
+    timestamp : Int;
+    userId : Text
+  };
+type AuthSettings__3934813 =
+  {
+    internetIdentityEnabled : Bool;
+    lockoutDurationMinutes : Nat;
+    lockoutEnabled : Bool;
+    maxFailedAttempts : Nat;
+    mfaEnabled : Bool;
+    mfaGracePeriodDays : Nat;
+    mfaOptionalEnrollment : Bool;
+    mfaRequiredForAdmins : Bool;
+    mfaRequiredForAll : Bool;
+    orgId : Text;
+    passwordComplexityRequired : Bool;
+    passwordExpiryDays : Nat;
+    passwordLoginEnabled : Bool;
+    passwordMaxLength : Nat;
+    passwordMinLength : Nat;
+    passwordReusePreventCount : Nat;
+    permanentLockUntilReset : Bool;
+    sessionTimeoutMinutes : Nat;
+    ssoEnabled : Bool
+  };
+type BusinessPlanActivity__349546727 =
+  {
+    description : Text;
+    dueDate : Int;
+    id : Text;
+    notes : Text;
+    owner : Text;
+    status : ActivityStatus__842094382
+  };
+type BusinessPlan__813016461 =
+  {
+    activities : [BusinessPlanActivity__349546727];
+    createdAt : Int;
+    id : Text;
+    month : ?Nat;
+    objective : Text;
+    partnerId : Text;
+    pipelineTarget : Float;
+    planType : PlanType__591553963;
+    quarter : ?Nat;
+    revenueTarget : Float;
+    vendorOwnerId : Text;
+    year : Nat
+  };
+type ChatMessage__363981528 =
+  {
+    aiSource : Text;
+    content : Text;
+    context : ?Text;
+    id : Text;
+    role : ChatRole__219927990;
+    suggestedActions : [Text];
+    timestamp : Int
+  };
+type ChatRole__219927990 = {#Assistant; #System; #User};
+type CompanyProfile__17980882 =
+  {
+    activationStatus : ActivationStatus__512591650;
+    claimedAt : ?Int;
+    claimedBy : ?Text;
+    companyId : Text;
+    companyName : Text;
+    companyType : CompanyType__303702527;
+    createdAt : Int;
+    emailDomain : Text;
+    id : Text;
+    logoKey : ?Text;
+    partnerDomains : [Text];
+    setupComplete : Bool;
+    vendorId : ?Text
+  };
+type CompanyType__303702527 = {#Distributor; #Reseller; #Vendor};
+type ConditionOperator__891868172 = {#contains; #equals; #notEquals};
+type Contact__188689621 =
+  {
+    accountId : Text;
+    contactOwner : Text;
+    contactType : Text;
+    createdAt : Int;
+    email : Text;
+    firstName : Text;
+    id : Text;
+    jobTitle : Text;
+    lastContactedDate : ?Int;
+    lastName : Text;
+    nextActionDate : ?Int;
+    notes : Text;
+    phone : Text
+  };
+type ConversationId__199309249 = Text;
+type ConversationType__828946887 =
+  {
+    #AccountThread;
+    #DealThread;
+    #DirectMessage;
+    #GroupMessage;
+    #RenewalThread
+  };
+type Conversation__78217734 =
+  {
+    conversationType : ConversationType__828946887;
+    createdAt : Int;
+    id : ConversationId__199309249;
+    lastMessageAt : Int;
+    lastMessagePreview : Text;
+    participantIds : [Text];
+    relatedEntityId : ?Text
+  };
+type CreditBalance__962771463 =
+  {aiCredits : Nat; computeCredits : Nat; storageCredits : Nat};
+type CreditTopUp__745641978 =
+  {
+    aiAdded : Nat;
+    computeAdded : Nat;
+    packageId : Text;
+    simulatedAmount : Float;
+    storageAdded : Nat;
+    timestamp : Int;
+    userId : Text
+  };
+type Currency__609919646 = {#AUD; #BTC; #CNY; #EUR; #GBP; #JPY; #USD};
+type CustomFieldDef__831903462 =
+  {
+    allowedValues : [Text];
+    createdAt : Int;
+    createdBy : Text;
+    defaultValue : ?Text;
+    editPermissions : [CustomFieldPermission__812421560];
+    fieldDescription : Text;
+    fieldLabel : Text;
+    fieldName : Text;
+    fieldType : CustomFieldType__85225458;
+    id : Text;
+    isApiVisible : Bool;
+    isArchived : Bool;
+    isExportVisible : Bool;
+    isReportable : Bool;
+    isRequired : Bool;
+    isSearchable : Bool;
+    lockedByVendor : Bool;
+    objectType : CustomFieldObjectType__77751539;
+    updatedAt : Int;
+    validationRules : [CustomFieldValidationRule__377086940];
+    viewPermissions : [CustomFieldPermission__812421560];
+    visibilityScope : CustomFieldVisibilityScope__768665902
+  };
+type CustomFieldObjectType__77751539 =
+  {
+    #businessPlan;
+    #customerAccount;
+    #dealRegistration;
+    #distributorProfile;
+    #marketingActivity;
+    #mdfRequest;
+    #opportunity;
+    #promotion;
+    #resellerProfile;
+    #userProfile
+  };
+type CustomFieldPermission__812421560 = {#creator; #edit; #owner; #view};
+type CustomFieldType__85225458 =
+  {
+    #attachment;
+    #checkbox;
+    #currency;
+    #date;
+    #datetime;
+    #dropdown;
+    #email;
+    #longText;
+    #multiSelect;
+    #number;
+    #organizationSelector;
+    #percentage;
+    #phoneNumber;
+    #regionSelector;
+    #tag;
+    #text;
+    #url;
+    #userSelector
+  };
+type CustomFieldValidationRuleType__903360335 =
+  {
+    #allowedValues;
+    #conditionalRequired;
+    #maxLength;
+    #maxValue;
+    #minLength;
+    #minValue;
+    #regex;
+    #required;
+    #unique
+  };
+type CustomFieldValidationRule__377086940 =
+  {ruleType : CustomFieldValidationRuleType__903360335; ruleValue : Text};
+type CustomFieldValueRef__1055360042 = {fieldDefId : Text; value : Text};
+type CustomFieldValueRef__504017905 = {fieldDefId : Text; value : Text};
+type CustomFieldValueRef__786682675 = {fieldDefId : Text; value : Text};
+type CustomFieldValue__276012069 =
+  {
+    createdAt : Int;
+    fieldDefId : Text;
+    objectId : Text;
+    objectType : CustomFieldObjectType__77751539;
+    updatedAt : Int;
+    updatedBy : Text;
+    uploadedFileKeys : [Text];
+    value : Text
+  };
+type CustomFieldVisibilityScope__768665902 =
+  {
+    #allOrgs;
+    #distributorOnly;
+    #internalOnly;
+    #resellerOnly;
+    #roleSpecific;
+    #vendorOnly
+  };
+type CustomerIdAuditAction__924695069 =
+  {
+    #created;
+    #duplicateBlocked;
+    #formatRuleChanged;
+    #manualOverride;
+    #mergeResolved;
+    #updated
+  };
+type CustomerIdAuditEntry__191834537 =
+  {
+    accountId : Text;
+    action : CustomerIdAuditAction__924695069;
+    customerId : Text;
+    detail : Text;
+    entryId : Text;
+    performedAt : Int;
+    performedBy : Text
+  };
+type CustomerIdFormatRule__622951827 =
+  {
+    allowedSeparators : [Text];
+    autoGenerationEnabled : Bool;
+    characterLimit : Nat;
+    duplicatePreventionEnabled : Bool;
+    formatPattern : Text;
+    lastSequenceNumber : Nat;
+    manualOverridePermitted : Bool;
+    numberSequencing : CustomerIdNumberSequencing__183766799;
+    prefixRules : Text;
+    regionRules : [Text];
+    updatedAt : Int;
+    vendorId : Text
+  };
+type CustomerIdNumberSequencing__183766799 = {#custom; #random; #sequential};
+type DashboardLayout__701996893 =
+  {
+    assignedTo : [Text];
+    createdAt : Int;
+    createdBy : Text;
+    description : Text;
+    id : Text;
+    isTemplate : Bool;
+    name : Text;
+    templateType : ?DashboardTemplateType__1004527834;
+    updatedAt : Int;
+    widgets : [WidgetConfig__4415224]
+  };
+type DashboardTemplateType__1004527834 = {#Department_; #OrgType_; #Role_};
+type Data__159895909<T> = {var count : Nat__490723111; elements : [var ?T]};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DealRegistration__1060504149 =
+  {
+    accountId : Text;
+    closeDate : Int;
+    competitor : Text;
+    createdAt : Int;
+    customerDomain : Text;
+    dealStage : Text;
+    estimatedValue : Float;
+    id : Text;
+    notes : Text;
+    opportunityName : Text;
+    product : Text;
+    quantity : Nat;
+    resellerId : Text;
+    status : DealStatus__983506576;
+    submittedBy : Text;
+    submittedDate : ?Int;
+    updatedAt : Int;
+    vendorOwnerId : Text
+  };
+type DealStatus__983506576 =
+  {
+    #Approved;
+    #Draft;
+    #Expired;
+    #Lost;
+    #Rejected;
+    #Submitted;
+    #UnderReview;
+    #Won
+  };
+type DistributorProfile__633667450 =
+  {
+    activationStatus : ActivationStatus__512591650;
+    companyId : Text;
+    companyName : Text;
+    createdAt : Int;
+    emailDomain : Text;
+    id : Text;
+    logoKey : ?Text;
+    primaryAdminEmail : Text;
+    resellerIds : [Text];
+    setupComplete : Bool;
+    updatedAt : Int;
+    vendorIds : [Text]
+  };
+type DuplicateDRRecord__178567684 =
+  {
+    accountId : Text;
+    existingDRId : Text;
+    existingResellerId : Text;
+    id : Text;
+    newDRId : Text;
+    product : Text;
+    resellerId : Text;
+    reviewAction : ?Text;
+    reviewNote : ?Text;
+    reviewedAt : ?Int;
+    reviewedBy : ?Principal;
+    status : DuplicateDRStatus__829950444;
+    submittedAt : Int
+  };
+type DuplicateDRStatus__829950444 =
+  {
+    #Approved;
+    #Escalated;
+    #Merged;
+    #PendingVendorReview;
+    #Reassigned;
+    #Rejected
+  };
+type ExchangeRateSnapshot__860495691 =
+  {
+    fetchedAt : Timestamp__301639476;
+    fromCurrency : Currency__609919646;
+    provider : ForexProvider__1001226788;
+    rate : Float;
+    toCurrency : Currency__609919646
+  };
+type FailedLoginEvent__767532956 =
+  {
+    attemptCount : Nat;
+    companyType : CompanyType__303702527;
+    email : Text;
+    id : Text;
+    ipHint : Text;
+    reason : Text;
+    timestamp : Int;
+    userId : ?Text
+  };
+type FieldType__814362372 =
+  {
+    #Attachment;
+    #Checkbox;
+    #Currency;
+    #DateTime_;
+    #Date_;
+    #Dropdown;
+    #Email_;
+    #LongText;
+    #MultiSelect;
+    #Number_;
+    #OrgSelector;
+    #Percentage;
+    #Phone;
+    #RegionSelector;
+    #Tag;
+    #Text_;
+    #Url;
+    #UserSelector
+  };
+type FiscalYearConfig__998582497 =
+  {
+    fiscalYearType : FiscalYearType__52213753;
+    quarters : [QuarterDef__10715292];
+    updatedAt : Timestamp__311228848;
+    updatedBy : Text;
+    vendorId : Text
+  };
+type FiscalYearType__52213753 = {#CalendarYear; #CustomFiscal};
+type ForexConfig__834761503 =
+  {
+    cryptoEnabled : Bool;
+    customApiEndpoint : ?Text;
+    defaultCurrency : Currency__609919646;
+    fallbackProviders : [ForexProvider__1001226788];
+    primaryProvider : ForexProvider__1001226788;
+    refreshMode : ForexRefreshMode__700800194;
+    updatedAt : Timestamp__301639476;
+    updatedBy : Principal
+  };
+type ForexProvider__1001226788 =
+  {
+    #BankOfEngland;
+    #Binance;
+    #Coinbase;
+    #CustomAPI;
+    #ECB;
+    #OpenExchangeRates;
+    #XE
+  };
+type ForexRefreshMode__700800194 =
+  {#Daily; #Hourly; #LiveOnLoad; #ManualOnly; #Weekly};
+type ForgeAIAlertConfig__889933413 =
+  {
+    alertType : ForgeAIAlertType__240521176;
+    deliveryMode : AlertDeliveryMode__351724999;
+    enabled : Bool;
+    endUsersRecipient : Bool;
+    escalationRecipients : [Text];
+    frequency : AlertFrequency__123313786;
+    lockStatus : LockStatus__617610251;
+    primaryAdminRecipient : Bool;
+    riskThreshold : ?Nat;
+    secondaryAdminRecipient : Bool
+  };
+type ForgeAIAlertType__240521176 =
+  {
+    #AccountRisk;
+    #BusinessPlanInactivity;
+    #ChannelHealthScoreChange;
+    #DealRegistrationWarning;
+    #DistributorEngagementGap;
+    #PipelineHealth;
+    #RenewalRisk;
+    #ResellerEngagementGap;
+    #StalledApproval
+  };
+type ForgeAIAuditEntry__318461596 =
+  {
+    analysisType : Text;
+    confidence : ?Nat;
+    details : Text;
+    entityId : Text;
+    entityName : Text;
+    id : Text;
+    riskLevel : ?RiskTier__768402131;
+    timestamp : Timestamp__311662554;
+    triggeredBy : Text
+  };
+type ForgeAIChatSession__76203256 =
+  {
+    contextId : ?Text;
+    contextType : ?Text;
+    createdAt : Int;
+    id : Text;
+    messages : [ChatMessage__363981528];
+    providerId : Text;
+    updatedAt : Int;
+    userId : Text
+  };
+type ForgeAIRecommendation__493519987 =
+  {
+    affectedEntityId : Text;
+    affectedEntityName : Text;
+    affectedEntityType : Text;
+    confidence : Nat;
+    dismissed : Bool;
+    id : Text;
+    recommendationType : Text;
+    riskLevel : RiskTier__768402131;
+    suggestedAction : Text;
+    summary : Text;
+    timestamp : Timestamp__311662554
+  };
+type ForgeAISettings__228523153 =
+  {
+    auditLogLevel : Text;
+    distributorInactivityThresholdDays : Nat;
+    enabled : Bool;
+    engagementGapEnabled : Bool;
+    escalationThresholdDays : Nat;
+    gapNotificationConfig : GapNotificationConfig__36897673;
+    messagingAssistEnabled : Bool;
+    recommendationsEnabled : Bool;
+    renewalRiskEnabled : Bool;
+    resellerInactivityThresholdDays : Nat;
+    smartQueriesEnabled : Bool;
+    warningThresholdDays : Nat
+  };
+type GapNotificationConfig__36897673 =
+  {
+    critical : GapNotificationRecipientConfig__649951078;
+    high : GapNotificationRecipientConfig__649951078
+  };
+type GapNotificationRecipientConfig__649951078 =
+  {
+    accountOwner : Bool;
+    assignedDistributor : Bool;
+    assignedReseller : Bool;
+    primaryAdmin : Bool
+  };
+type InAppNotification__120803294 =
+  {
+    createdAt : Timestamp__301639476;
+    entityId : ?Text;
+    entityType : ?Text;
+    id : Text;
+    isRead : Bool;
+    message : Text;
+    notificationType : NotificationType__908192046;
+    recipientId : Principal;
+    title : Text
+  };
+type Internal__667636161<T> =
+  {children : [var ?Node__92254746<T>]; data : Data__159895909<T>};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type InvitationStatus__570723827 =
+  {#Accepted; #Cancelled; #Expired; #Pending};
+type LayoutAssignment__207294027 =
+  {
+    department : ?Text;
+    layoutId : LayoutId__101948996;
+    marketSegment : ?Text;
+    orgType : ?Text;
+    priority : Nat;
+    role : ?Text;
+    territory : ?Text
+  };
+type LayoutAuditEntry__334377930 =
+  {
+    action : Text;
+    afterState : ?Text;
+    beforeState : ?Text;
+    entityId : Text;
+    entityType : Text;
+    id : Text;
+    performedBy : Text;
+    timestamp : Int
+  };
+type LayoutField__692213217 =
+  {
+    defaultValue : ?Text;
+    fieldLabel : Text;
+    fieldType : FieldType__814362372;
+    id : Text;
+    options : [Text];
+    required : Bool;
+    sectionId : ?Text;
+    sortOrder : Nat;
+    visible : Bool
+  };
+type LayoutId__101948996 = Text;
+type LayoutPermissions__229733591 =
+  {
+    canManageCustomFields : Bool;
+    canManageDashboardTemplates : Bool;
+    canManageLayouts : Bool;
+    canManageWidgets : Bool
+  };
+type LayoutSection__412901089 =
+  {
+    collapsible : Bool;
+    fieldIds : [Text];
+    id : Text;
+    sortOrder : Nat;
+    title : Text
+  };
+type Leaf__520550824<T> = {data : Data__159895909<T>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type LockSource__685022350 = {#Distributor; #Vendor};
+type LockStatus__617610251 =
+  {
+    #InheritedFrom : LockSource__685022350;
+    #LockedBy : LockSource__685022350;
+    #Unlocked
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MarketingActivityStatus__73186362 =
+  {#cancelled; #completed; #inProgress; #planned};
+type MarketingActivityType__685450684 =
+  {#content; #emailCampaign; #event; #other; #sponsorship; #webinar};
+type MarketingActivity__243923111 =
+  {
+    activityName : Text;
+    activityType : MarketingActivityType__685450684;
+    associatedPromotionIds : [Text];
+    budget : Nat;
+    createdAt : Int;
+    currency : Text;
+    customFieldValues : [CustomFieldValueRef__504017905];
+    distributorId : ?Text;
+    endDate : Int;
+    id : Text;
+    ownerUserId : Text;
+    resellerId : ?Text;
+    roi : ?Int;
+    startDate : Int;
+    status : MarketingActivityStatus__73186362;
+    targetAccountIds : [Text];
+    updatedAt : Int;
+    vendorOwnerId : Text
+  };
+type MdfRequestStatus__326064749 =
+  {#approved; #cancelled; #paid; #pending; #rejected};
+type MdfRequest__750783630 =
+  {
+    amount : Nat;
+    approvalNote : ?Text;
+    approvedAt : ?Int;
+    approvedBy : ?Text;
+    associatedAccountId : ?Text;
+    budgetQuarter : ?Nat;
+    budgetYear : Nat;
+    createdAt : Int;
+    currency : Text;
+    customFieldValues : [CustomFieldValueRef__786682675];
+    id : Text;
+    purpose : Text;
+    requestorOrgId : Text;
+    requestorUserId : Text;
+    status : MdfRequestStatus__326064749;
+    updatedAt : Int;
+    vendorOwnerId : Text
+  };
+type MessageId__883709611 = Text;
+type Message__804209456 =
+  {
+    attachmentUrls : [Text];
+    content : Text;
+    conversationId : ConversationId__199309249;
+    id : MessageId__883709611;
+    readBy : [ReadReceipt__887347882];
+    senderId : Text;
+    sentAt : Int
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewsItem__391599208 =
+  {
+    body : Text;
+    createdAt : Int;
+    id : Text;
+    publishDate : Int;
+    publishedBy : Text;
+    title : Text;
+    visibility : NewsVisibility__864114259
+  };
+type NewsVisibility__864114259 =
+  {
+    #AllResellers;
+    #SpecificRegions : [Text];
+    #SpecificResellers : [Text];
+    #VendorOnly
+  };
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Node__92254746<T> =
+  {#internal : Internal__667636161<T>; #leaf : Leaf__520550824<T>};
+type Note__27702861 =
+  {
+    accountId : Text;
+    authorId : Text;
+    authorName : Text;
+    authorRole : Text;
+    content : Text;
+    createdAt : Int;
+    editedBy : ?Text;
+    id : Text;
+    updatedAt : ?Int
+  };
+type NotificationRuleId__936542354 = Text;
+type NotificationRule__158047096 =
+  {
+    currentValue : Bool;
+    displayName : Text;
+    isEditable : Bool;
+    lockStatus : LockStatus__617610251;
+    ruleId : NotificationRuleId__936542354
+  };
+type NotificationType__908192046 =
+  {
+    #DealApproved;
+    #DealRejected;
+    #DuplicateDRFlagged;
+    #DuplicateDRReviewed;
+    #EngagementGapAlert;
+    #TierAssigned;
+    #UnlockRequested;
+    #WorkspaceActivated
+  };
+type OpportunityStage__451805292 =
+  {
+    #closedLost;
+    #closedWon;
+    #negotiation;
+    #proposal;
+    #prospecting;
+    #qualification
+  };
+type OpportunityStatus__679276785 = {#active; #archived};
+type Opportunity__273793721 =
+  {
+    associatedDealIds : [Text];
+    closeDate : Int;
+    createdAt : Int;
+    customFieldValues : [CustomFieldValueRef__1055360042];
+    customerAccountId : ?Text;
+    distributorId : ?Text;
+    id : Text;
+    opportunityName : Text;
+    ownerUserId : Text;
+    resellerId : ?Text;
+    revenueEstimate : Nat;
+    stage : OpportunityStage__451805292;
+    status : OpportunityStatus__679276785;
+    updatedAt : Int;
+    vendorOwnerId : Text
+  };
+type OrgForgeAIAlertSettings__489127773 =
+  {
+    alertConfigs : [ForgeAIAlertConfig__889933413];
+    canManageForgeAIAlertsSecondaryAdmins : [Principal];
+    orgId : Text
+  };
+type OrgVisibilityConfig__955115249 =
+  {
+    customRules : [VisibilityRule__457019620];
+    defaultInheritFromVendor : Bool;
+    lockedByParent : Bool;
+    orgId : Text;
+    updatedAt : Int
+  };
+type OwnerType__370206125 = {#Distributor; #Reseller; #Vendor};
+type PartnerTier__821263216 = {#Gold; #Platinum; #Silver};
+type PasswordHash__743238706 = {hash : Text; salt : Text};
+type PasswordResetToken__211941591 =
+  {
+    companyType : CompanyType__303702527;
+    createdAt : Int;
+    email : Text;
+    expiresAt : Int;
+    id : Text;
+    revokedBy : ?Text;
+    used : Bool;
+    userId : Text
+  };
+type PlanType__591553963 = {#Annual; #Monthly; #Quarterly};
+type PriceList__224848437 =
+  {
+    createdAt : Int;
+    createdBy : Text;
+    currency : Text;
+    effectiveDate : Int;
+    expiryDate : Int;
+    fileKey : Text;
+    id : Text;
+    name : Text;
+    productFamily : Text;
+    region : Text;
+    version : Text
+  };
+type ProfileVisibilityScope__167125952 = {#ConnectedOnly; #WorkspaceOnly};
+type Promotion__299869504 =
+  {
+    callToAction : Text;
+    createdAt : Int;
+    createdBy : Text;
+    description : Text;
+    endDate : Int;
+    fileKeys : [Text];
+    id : Text;
+    product : Text;
+    promoName : Text;
+    resellerEligibility : [Text];
+    startDate : Int
+  };
+type QuarterDef__10715292 =
+  {endDate : Text; name : Text; quarterId : Text; startDate : Text};
+type ReadReceipt__887347882 = {readAt : Int; userId : Text};
+type ReassignmentApprovalStatus__793214240 = {#Approved; #Pending; #Rejected};
+type ResidentInvitation__1050299148 =
+  {
+    companyId : Text;
+    createdAt : Int;
+    email : Text;
+    expiresAt : Int;
+    id : Text;
+    invitedBy : Text;
+    role : UserRole__1004110856;
+    status : InvitationStatus__570723827
+  };
+type RiskTier__768402131 = {#Critical; #Healthy; #High; #Low; #Medium};
+type RoleMapping__132339830 = {channelforgeRole : Text; providerGroup : Text};
+type SSOConfig__387927557 =
+  {
+    allowFallbackPassword : Bool;
+    callbackUrl : Text;
+    clientId : Text;
+    clientSecret : Text;
+    domainMapping : [Text];
+    enabled : Bool;
+    forceSso : Bool;
+    issuerUrl : Text;
+    metadataUrl : Text;
+    orgId : Text;
+    provider : SSOProvider__445730436;
+    roleMapping : [RoleMapping__132339830];
+    updatedAt : Int;
+    updatedBy : Text
+  };
+type SSOProvider__445730436 =
+  {
+    #azure_ad;
+    #custom;
+    #google_workspace;
+    #internet_identity;
+    #none;
+    #oidc;
+    #okta;
+    #saml
+  };
+type SessionToken__731358949 =
+  {
+    companyId : Text;
+    companyType : CompanyType__303702527;
+    createdAt : Int;
+    expiresAt : Int;
+    isPendingMfa : Bool;
+    mfaVerified : Bool;
+    token : Text;
+    userId : Text
+  };
+type Set__532252804<T> = Set__710576254<T>;
+type Set__710576254<T> =
+  {var root : Node__92254746<T>; var size : Nat__490723111};
+type TargetAssignment__643027854 =
+  {
+    assignedAt : Timestamp__983847830;
+    assignedBy : Text;
+    assignmentId : Text;
+    assignmentScope : TargetScope__105145226;
+    measureId : TargetMeasureId__125685203;
+    periodKey : Text;
+    periodType : TargetPeriodType__217095868;
+    targetValue : Float;
+    vendorId : Text
+  };
+type TargetCalculationType__762395576 =
+  {#Count; #Percentage; #Revenue; #Weighted};
+type TargetMeasureConfig__262486891 =
+  {
+    measures : [TargetMeasure__292491114];
+    updatedAt : Timestamp__983847830;
+    updatedBy : Text;
+    vendorId : Text
+  };
+type TargetMeasureId__125685203 =
+  {#Measure1; #Measure2; #Measure3; #Measure4; #Measure5};
+type TargetMeasure__292491114 =
+  {
+    calculationType : TargetCalculationType__762395576;
+    customName : ?Text;
+    defaultName : Text;
+    measureId : TargetMeasureId__125685203
+  };
+type TargetPeriodType__217095868 = {#Annual; #Quarterly};
+type TargetScope__105145226 =
+  {
+    #AllResellers;
+    #ByCountry : Text;
+    #ByDistributor : Text;
+    #ByProductFamily : Text;
+    #ByReseller : Text;
+    #ByTier : Text;
+    #ByUser : Text
+  };
+type TierAssignment__940423528 =
+  {
+    assignedAt : Timestamp__301639476;
+    assignedBy : Principal;
+    resellerId : Text;
+    tier : PartnerTier__821263216
+  };
+type TierConfig__70379422 =
+  {
+    maxSecondaryAdmins : Nat;
+    permissions : [TierPermission__128115382];
+    tier : PartnerTier__821263216;
+    updatedAt : Timestamp__301639476;
+    updatedBy : Principal
+  };
+type TierOverride__298306629 =
+  {
+    granted : Bool;
+    overriddenAt : Timestamp__301639476;
+    overriddenBy : Principal;
+    permission : TierPermission__128115382;
+    reason : Text;
+    resellerId : Text
+  };
+type TierPermission__128115382 =
+  {
+    #AIRecommendations;
+    #APIAccess;
+    #AdvancedDashboards;
+    #CustomerAnalytics;
+    #DealRegistrations;
+    #ExportPermissions;
+    #ForecastVisibility;
+    #MDFRequests;
+    #PipelineReporting;
+    #PricingDiscounts;
+    #PromotionsVisibility;
+    #RenewalVisibilityDepth;
+    #SecondaryAdminAccess;
+    #StrategicAccountInsights
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__311228848 = Timestamp__301639476;
+type Timestamp__311662554 = Timestamp__301639476;
+type Timestamp__983847830 = Timestamp__301639476;
+type UnlockRequestStatus__431382970 = {#Approved; #Declined; #Pending};
+type UnlockRequest__490670962 =
+  {
+    createdAt : Timestamp__301639476;
+    lockSource : LockSource__685022350;
+    reason : Text;
+    requestId : Text;
+    requestingAdminId : Principal;
+    requestingAdminName : Text;
+    requestingOrgId : Text;
+    resolvedAt : ?Timestamp__301639476;
+    resolvedBy : ?Principal;
+    ruleId : NotificationRuleId__936542354;
+    ruleName : Text;
+    status : UnlockRequestStatus__431382970;
+    targetOrgId : Text
+  };
+type UsageEvent__665337067 =
+  {
+    actionType : Text;
+    aiCost : Nat;
+    computeCost : Nat;
+    orgId : Text;
+    storageCost : Nat;
+    timestamp : Int;
+    userId : Text
+  };
+type UserAuthState__515977686 =
+  {
+    accountLockedUntil : ?Int;
+    companyId : Text;
+    createdAt : Int;
+    failedLoginCount : Nat;
+    isActive : Bool;
+    lastPasswordChange : Int;
+    mfaEnrolled : Bool;
+    mfaPendingSecret : ?Text;
+    mfaRecoveryCodes : [Text];
+    mfaSecret : ?Text;
+    passwordExpiryAt : ?Int;
+    passwordHash : ?PasswordHash__743238706;
+    previousPasswordHashes : [PasswordHash__743238706];
+    updatedAt : Int;
+    userId : Text
+  };
+type UserProfileDetail__965528050 =
+  {
+    companyId : Text;
+    companyType : CompanyType__303702527;
+    createdAt : Int;
+    displayName : Text;
+    email : Text;
+    jobTitle : Text;
+    linkedInUrl : ?Text;
+    photoUrl : ?Text;
+    region : ?Text;
+    roleDescription : ?Text;
+    timezone : ?Text;
+    updatedAt : Int;
+    userId : Text;
+    userRole : UserRole__1004110856;
+    visibilityScope : ProfileVisibilityScope__167125952
+  };
+type UserProfile__671946439 =
+  {
+    companyId : Text;
+    createdAt : Int;
+    email : Text;
+    fullName : Text;
+    id : Text;
+    isPrimaryAdmin : Bool;
+    permissions : [Text];
+    role : UserRole__1004110856
+  };
+type UserRole__1004110856 =
+  {
+    #DistributorPrimaryAdmin;
+    #DistributorSalesUser;
+    #DistributorSecondaryAdmin;
+    #ReadOnlyViewer;
+    #ResellerAdmin;
+    #ResellerPrimaryAdmin;
+    #ResellerSalesUser;
+    #VendorAdmin;
+    #VendorPrimaryAdmin;
+    #VendorSecondaryAdmin
+  };
+type UserRole__1073662873 = {#admin; #guest; #user};
+type VisibilityConditionType__61382421 =
+  {
+    #ByAccountType;
+    #ByDepartment;
+    #ByMarketSegment;
+    #ByOrgType;
+    #ByRole;
+    #ByTerritory
+  };
+type VisibilityCondition__191042779 =
+  {conditionType : VisibilityConditionType__61382421; value : Text};
+type VisibilityOperator__832603504 = {#And_; #Or_};
+type VisibilityRuleAction__553910433 = {#Hide_; #Show_};
+type VisibilityRuleCondition__308782397 =
+  {
+    conditionField : Text;
+    conditionOperator : ConditionOperator__891868172;
+    conditionValue : Text
+  };
+type VisibilityRuleType__800747621 = {#allow; #deny};
+type VisibilityRule__457019620 =
+  {
+    conditions : [VisibilityRuleCondition__308782397];
+    createdAt : Int;
+    id : Text;
+    isActive : Bool;
+    objectType : CustomFieldObjectType__77751539;
+    orgId : Text;
+    ruleType : VisibilityRuleType__800747621;
+    updatedAt : Int
+  };
+type VisibilityRule__775054769 =
+  {
+    action : VisibilityRuleAction__553910433;
+    conditions : [VisibilityCondition__191042779];
+    id : Text;
+    operator : VisibilityOperator__832603504;
+    targetId : Text;
+    targetType : VisibilityTargetType__235317668
+  };
+type VisibilityTargetType__235317668 = {#Field_; #Section_; #Tab_};
+type WidgetConfig__4415224 =
+  {
+    accountFilter : ?Text;
+    aiSummaryEnabled : Bool;
+    customConfig : Text;
+    dateRange : ?Text;
+    deptFilter : [Text];
+    isPinned : Bool;
+    posX : Nat;
+    posY : Nat;
+    refreshIntervalSecs : ?Nat;
+    roleFilter : [Text];
+    size : WidgetSize__7262650;
+    territoryFilter : ?Text;
+    title : Text;
+    widgetId : Text;
+    widgetType : WidgetType__712127320
+  };
+type WidgetSize__7262650 =
+  {#FullWidth; #Large_; #Medium_; #Small_; #Tall; #Wide};
+type WidgetType__712127320 =
+  {
+    #AccountHealth;
+    #ActivityFeed;
+    #AiInsights;
+    #AiUsage;
+    #BarChart;
+    #ComputeStorage;
+    #Custom_;
+    #DistributorPerformance;
+    #Forecasting;
+    #KpiCard;
+    #LineGraph;
+    #MdfTracking;
+    #MessagingWidget;
+    #OperationalAlerts;
+    #OpportunitySummary;
+    #PipelineBoard;
+    #RenewalTracker;
+    #ResellerPerformance;
+    #SlaTracking;
+    #TerritoryPerformance
+  };
+actor {
+  stable _testSeedState : {var seeded : Bool};
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable accountsState :
+    {
+      accounts : Map__605269027<Text, Account__1026151617>;
+      contacts : Map__605269027<Text, Contact__188689621>;
+      idCounter : {var value : Nat};
+      notes : Map__605269027<Text, Note__27702861>
+    };
+  stable aiProviderState :
+    {
+      accessRules : Map__605269027<Text, AIAccessRule__127713341>;
+      auditLog : List__415060402<AIAuditEntry__224544961>;
+      chatSessions : Map__605269027<Text, ForgeAIChatSession__76203256>;
+      configs : Map__605269027<Text, AIProviderConfig__957032160>;
+      counterState : {var nextId : Nat};
+      providers : Map__605269027<Text, AIProvider__562119276>
+    };
+  stable alertsState :
+    {
+      alerts : Map__605269027<Text, Alert__607610635>;
+      auditLog : List__415060402<AuditEntry__454487189>;
+      idCounter : {var value : Nat};
+      news : Map__605269027<Text, NewsItem__391599208>
+    };
+  stable assetsState :
+    {
+      idCounter : {var value : Nat};
+      priceLists : Map__605269027<Text, PriceList__224848437>;
+      promotions : Map__605269027<Text, Promotion__299869504>
+    };
+  stable authState :
+    {
+      activeSessions : Map__605269027<Text, SessionToken__731358949>;
+      authSettings : Map__605269027<Text, AuthSettings__3934813>;
+      failedLoginLog : List__415060402<FailedLoginEvent__767532956>;
+      idCounter : {var value : Nat};
+      resetTokens : Map__605269027<Text, PasswordResetToken__211941591>;
+      ssoConfigs : Map__605269027<Text, SSOConfig__387927557>;
+      userAuthStates : Map__605269027<Text, UserAuthState__515977686>
+    };
+  stable companyState :
+    {
+      companies : Map__605269027<Text, CompanyProfile__17980882>;
+      idCounter : {var value : Nat};
+      invitations : Map__605269027<Text, ResidentInvitation__1050299148>;
+      userProfiles : Map__605269027<Text, UserProfile__671946439>
+    };
+  stable creditsState :
+    {
+      balances : Map__605269027<Text, CreditBalance__962771463>;
+      topUps : Map__605269027<Text, List__415060402<CreditTopUp__745641978>>;
+      usageEvents :
+        Map__605269027<Text, List__415060402<UsageEvent__665337067>>
+    };
+  stable customFieldsState :
+    {
+      fieldDefs : Map__605269027<Text, CustomFieldDef__831903462>;
+      fieldValues :
+        Map__605269027<Text, List__415060402<CustomFieldValue__276012069>>
+    };
+  stable customerIdState :
+    {
+      auditLog : List__415060402<CustomerIdAuditEntry__191834537>;
+      formatRules : Map__605269027<Text, CustomerIdFormatRule__622951827>;
+      usedIds : Map__605269027<Text, Set__532252804<Text>>
+    };
+  stable dealsState :
+    {
+      deals : Map__605269027<Text, DealRegistration__1060504149>;
+      duplicateDRs : Map__605269027<Text, DuplicateDRRecord__178567684>;
+      idCounter : {var value : Nat}
+    };
+  stable distributorState :
+    {
+      distributors : Map__605269027<Text, DistributorProfile__633667450>;
+      idCounter : {var value : Nat}
+    };
+  stable forexState :
+    {
+      config : {var value : ?ForexConfig__834761503};
+      rateHistory : List__415060402<ExchangeRateSnapshot__860495691>
+    };
+  stable forgeaiState :
+    {
+      auditLog : List__415060402<ForgeAIAuditEntry__318461596>;
+      gapNotifSentAt : Map__605269027<Text, Int>;
+      idCounter : {var value : Nat};
+      recommendations : List__415060402<ForgeAIRecommendation__493519987>;
+      settings : {var value : ForgeAISettings__228523153}
+    };
+  stable layoutBuilderState :
+    {
+      assignments : List__415060402<LayoutAssignment__207294027>;
+      auditLog : List__415060402<LayoutAuditEntry__334377930>;
+      dashboardLayouts : Map__605269027<Text, DashboardLayout__701996893>;
+      layouts : Map__605269027<Text, AccountLayout__14124340>;
+      permissions : Map__605269027<Text, LayoutPermissions__229733591>;
+      visibilityRules :
+        Map__605269027<Text, List__415060402<VisibilityRule__775054769>>
+    };
+  stable marketingState :
+    {
+      activities : Map__605269027<Text, MarketingActivity__243923111>;
+      state : {var nextSeq : Nat}
+    };
+  stable mdfRequestsState :
+    {
+      requests : Map__605269027<Text, MdfRequest__750783630>;
+      state : {var nextSeq : Nat}
+    };
+  stable messagingState :
+    {
+      conversations :
+        Map__605269027<ConversationId__199309249, Conversation__78217734>;
+      idCounter : {var value : Nat};
+      messages :
+        Map__605269027<ConversationId__199309249,
+                        List__415060402<Message__804209456>>
+    };
+  stable notificationRulesState :
+    {
+      forgeAIAlertSettings :
+        Map__605269027<Text, OrgForgeAIAlertSettings__489127773>;
+      idCounter : {var value : Nat};
+      orgNotificationRules :
+        Map__605269027<Text, [NotificationRule__158047096]>;
+      unlockRequests : Map__605269027<Text, UnlockRequest__490670962>
+    };
+  stable notificationsState :
+    {
+      idCounter : {var value : Nat};
+      notifications : Map__605269027<Text, InAppNotification__120803294>
+    };
+  stable opportunitiesState :
+    {
+      opportunities : Map__605269027<Text, Opportunity__273793721>;
+      state : {var nextSeq : Nat}
+    };
+  stable plansState :
+    {
+      idCounter : {var value : Nat};
+      plans : Map__605269027<Text, BusinessPlan__813016461>
+    };
+  stable profilesState :
+    {profileDetails : Map__605269027<Text, UserProfileDetail__965528050>};
+  stable quartersState :
+    {fiscalYearConfigs : Map__605269027<Text, FiscalYearConfig__998582497>};
+  stable targetsState :
+    {
+      idCounter : {var value : Nat};
+      measureConfigs : Map__605269027<Text, TargetMeasureConfig__262486891>;
+      targetAssignments : Map__605269027<Text, TargetAssignment__643027854>
+    };
+  stable tiersState :
+    {
+      tierAssignments : Map__605269027<Text, TierAssignment__940423528>;
+      tierConfigs : Map__605269027<Text, TierConfig__70379422>;
+      tierOverrides : List__415060402<TierOverride__298306629>
+    };
+  stable visibilityState :
+    {
+      orgConfigs : Map__605269027<Text, OrgVisibilityConfig__955115249>;
+      ruleSeq : {var next : Nat};
+      rules : Map__605269027<Text, VisibilityRule__457019620>
+    }
+};

@@ -1,0 +1,27 @@
+{
+  "overview": "CHANNELFORGE CRM is an enterprise-grade, sovereign channel-sales CRM and PRM platform for software Vendors, Distributors, and Resellers with deeply role-aware, operationally intelligent experiences for every user persona.",
+  "features": [
+    "Role-specific dashboards for 19+ personas",
+    "Multi-vendor multi-distributor dynamic filter bar",
+    "Linked workspace relationship views by org type",
+    "ForgeAI context-aware insights panel",
+    "Full seeded dummy ecosystem for testing",
+    "Enterprise dark navy and orange design system",
+    "KPI tiles with YoY/QoQ/QTD tracking",
+    "Quote builder and price list engine",
+    "Channel hierarchy governance (CAM, Channel Sales Manager, Channel Director)",
+    "Test Mode persona switcher"
+  ],
+  "category": "crm",
+  "tags": [
+    "enterprise",
+    "crm",
+    "channel-sales",
+    "prm",
+    "multi-role",
+    "b2b",
+    "vendor-management",
+    "partner-management"
+  ],
+  "last_updated": "2026-05-25T15:58:13.089Z"
+}
